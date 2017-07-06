@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 public class BlankFragment extends Fragment {
 
     /**
-     * test2==3
+     * test2==3===2
      */
     public BlankFragment() {
         // Required empty public constructor
