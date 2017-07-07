@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 public class Main2Activity extends AppCompatActivity {
     /**
-     * new==local
+     * new==master
      * @param savedInstanceState
      */
     @Override
