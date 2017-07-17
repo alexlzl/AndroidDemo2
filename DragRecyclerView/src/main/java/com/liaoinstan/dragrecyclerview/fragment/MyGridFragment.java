@@ -33,6 +33,8 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
     ArrayList<Item> items;
     TextView deletestate;
     TextView dragstate;
+    TextView outbunds;
+    TextView mposition;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +80,10 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mposition= (TextView) view.findViewById(R.id.position);
            dragstate= (TextView) view.findViewById(R.id.dragstate);
         deletestate= (TextView) view.findViewById(R.id.deletestate);
+        outbunds= (TextView) view.findViewById(R.id.outbunds);
         RecyclerAdapter adapter = new RecyclerAdapter(R.layout.item_grid,results);
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
@@ -132,5 +136,15 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
     @Override
     public void dragState(boolean start) {
              dragstate.setText("拖动状态"+start+"");
+    }
+
+    @Override
+    public void isOutBunds(boolean isOut,int h,int position) {
+                    if(isOut){
+                        outbunds.setText("拖拽出边界"+"距离边界="+h);
+                    }else{
+                        outbunds.setText("未拖拽出边界"+"距离边界="+h);
+                    }
+        mposition.setText(position+"");
     }
 }

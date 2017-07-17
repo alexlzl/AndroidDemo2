@@ -108,7 +108,17 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
 
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             onDragListener.dragState(true);//显示删除区域
-
+            /**
+             * 判断是否item拖拽出下边界======
+             */
+            int  recyclerh=mparent.findViewById(R.id.recycler).getHeight();
+            //itemview高度
+            int itemh=viewHolder.itemView.getHeight();
+            if(isOutBund(dY,viewHolder.itemView)){
+                onDragListener.isOutBunds(true, recyclerh-itemh,viewHolder.getLayoutPosition());
+            }else{
+                onDragListener.isOutBunds(false,recyclerh-itemh,viewHolder.getLayoutPosition());
+            }
             if (isToBottom(viewHolder.itemView,dY)) {//拖到删除处
                 onDragListener.deleteState(true,dY,viewHolder.itemView.getHeight());
                 if (up) {//在删除处放手，则删除item
@@ -149,15 +159,33 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
 //        }
     }
 
+    /**
+     * \判断是否拖拽到底部删除区域
+     * @param itemView
+     * @param dy
+     * @return
+     */
     public boolean isToBottom(View itemView,float dy){
         TextView bottomtv= (TextView) mparent.findViewById(R.id.bottom_tv);
         //底部到父视图距离
         int height=bottomtv.getTop();
+//        int height=mparent.findViewById(R.id.ll_parent).getTop();
         //item到recyclerview顶部距离
-        int itemTop=itemView.getTop();
-        int  distance=height-itemTop;
+        int itemTop=itemView.getBottom();
+        int  distance=height-itemTop-30;
         if(dy>=distance){
             return true;
+        }
+        return  false;
+    }
+
+    public boolean isOutBund(float dy,View itemview){
+        //recyclerview高度
+        int  recyclerh=mparent.findViewById(R.id.recycler).getHeight();
+        //itemview高度
+        int itemh=itemview.getHeight();
+        if(dy>=(recyclerh-itemh-5)){
+            return  true;
         }
         return  false;
     }
@@ -232,6 +260,8 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
          * @param start
          */
         void dragState(boolean start);
+
+        void  isOutBunds(boolean isOut,int height,int position);
     }
 
     public interface ItemTouchAdapter {
