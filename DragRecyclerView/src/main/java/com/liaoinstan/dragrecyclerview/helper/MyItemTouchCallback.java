@@ -44,7 +44,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
     public MyItemTouchCallback(ItemTouchAdapter itemTouchAdapter, List<Item> results, ViewGroup parent) {
         this.itemTouchAdapter = itemTouchAdapter;
         mresults = results;
-        mparent=parent;
+        mparent = parent;
     }
 
     /**
@@ -111,16 +111,16 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
             /**
              * 判断是否item拖拽出下边界======
              */
-            int  recyclerh=mparent.findViewById(R.id.recycler).getHeight();
+            int recyclerh = mparent.findViewById(R.id.recycler).getHeight();
             //itemview高度
-            int itemh=viewHolder.itemView.getHeight();
-            if(isOutBund(dY,viewHolder.itemView)){
-                onDragListener.isOutBunds(true, recyclerh-itemh,viewHolder.getLayoutPosition());
-            }else{
-                onDragListener.isOutBunds(false,recyclerh-itemh,viewHolder.getLayoutPosition());
+            int itemh = viewHolder.itemView.getHeight();
+            if (isOutBund(dY, viewHolder.itemView)) {
+                onDragListener.isOutBunds(true, recyclerh - itemh, viewHolder.getLayoutPosition());
+            } else {
+                onDragListener.isOutBunds(false, recyclerh - itemh, viewHolder.getLayoutPosition());
             }
-            if (isToBottom(viewHolder.itemView,dY)) {//拖到删除处
-                onDragListener.deleteState(true,dY,viewHolder.itemView.getHeight());
+            if (isToBottom(viewHolder.itemView, dY)) {//拖到删除处
+                onDragListener.deleteState(true, dY, viewHolder.itemView.getHeight());
                 if (up) {//在删除处放手，则删除item
                     viewHolder.itemView.setVisibility(View.INVISIBLE);//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
                     mresults.remove(viewHolder.getAdapterPosition());
@@ -132,7 +132,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
                 if (View.INVISIBLE == viewHolder.itemView.getVisibility()) {//如果viewHolder不可见，则表示用户放手，重置删除区域状态
                     onDragListener.dragState(false);
                 }
-                onDragListener.deleteState(false,dY,viewHolder.itemView.getHeight());
+                onDragListener.deleteState(false, dY, viewHolder.itemView.getHeight());
             }
         }
         if (null == onDragListener) {
@@ -161,33 +161,37 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
 
     /**
      * \判断是否拖拽到底部删除区域
+     *
      * @param itemView
      * @param dy
      * @return
      */
-    public boolean isToBottom(View itemView,float dy){
-        TextView bottomtv= (TextView) mparent.findViewById(R.id.bottom_tv);
+    public boolean isToBottom(View itemView, float dy) {
+        TextView bottomtv = (TextView) mparent.findViewById(R.id.bottom_tv);
         //底部到父视图距离
-        int height=bottomtv.getTop();
+        int height = bottomtv.getTop();
 //        int height=mparent.findViewById(R.id.ll_parent).getTop();
         //item到recyclerview顶部距离
-        int itemTop=itemView.getBottom();
-        int  distance=height-itemTop-30;
-        if(dy>=distance){
+        int itemTop = itemView.getBottom();
+        int distance = height - itemTop - 30;
+        if (dy >= distance) {
             return true;
         }
-        return  false;
+        return false;
     }
 
-    public boolean isOutBund(float dy,View itemview){
+    public boolean isOutBund(float dy, View itemview) {
         //recyclerview高度
-        int  recyclerh=mparent.findViewById(R.id.recycler).getHeight();
+        int recyclerh = mparent.findViewById(R.id.recycler).getHeight();
         //itemview高度
-        int itemh=itemview.getHeight();
-        if(dy>=(recyclerh-itemh-5)){
-            return  true;
+        int itemh = itemview.getBottom();
+        int dis=recyclerh - itemh -5;
+//        int d= (int) dy;
+        if (dy>=dis) {
+            return true;
         }
-        return  false;
+        return false;
+
     }
 
     @Override
@@ -228,7 +232,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
      */
     private void initData() {
         if (onDragListener != null) {
-            onDragListener.deleteState(false,0,0);
+            onDragListener.deleteState(false, 0, 0);
             onDragListener.dragState(false);
         }
         up = false;
@@ -252,7 +256,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
          *
          * @param delete
          */
-        void deleteState(boolean delete,float dy,int itemh);
+        void deleteState(boolean delete, float dy, int itemh);
 
         /**
          * 是否于拖拽状态
@@ -261,7 +265,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
          */
         void dragState(boolean start);
 
-        void  isOutBunds(boolean isOut,int height,int position);
+        void isOutBunds(boolean isOut, int height, int position);
     }
 
     public interface ItemTouchAdapter {
