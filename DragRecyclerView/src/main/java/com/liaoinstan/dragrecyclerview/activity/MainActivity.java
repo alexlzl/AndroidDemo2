@@ -20,12 +20,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (savedInstanceState==null){
-            MainFragment mainFragment = new MainFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment,mainFragment)
-                    .commit();
-        }
+//        if (savedInstanceState==null){
+//            MainFragment mainFragment = new MainFragment();
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.fragment,mainFragment)
+//                    .commit();
+//        }
+        Fragment fragment = null;
+        fragment = new MyGridFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override

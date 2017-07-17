@@ -1,4 +1,4 @@
-package com.liaoinstan.dragrecyclerview.helper;
+package com.example.myapplication;
 
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
@@ -6,8 +6,14 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * 手势监听
+ * Created by kuyue on 2017/6/20 上午10:45.
+ * 邮箱:595327086@qq.com
+ */
 
-public class OnRecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+public abstract class OnRecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+
     private GestureDetectorCompat mGestureDetector;
     private RecyclerView recyclerView;
 
@@ -29,16 +35,11 @@ public class OnRecyclerItemClickListener implements RecyclerView.OnItemTouchList
 
     @Override
     public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
     }
 
     private class ItemTouchHelperGestureListener extends GestureDetector.SimpleOnGestureListener {
-
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
-            /**
-             * 已经获取到了RecyclerView的点击事件和触摸事件数据MotionEvent ，那么我们怎么知道点击的是哪一个item呢？RecyclerView已经为我们提供了这样的方法：findChildViewUnder()，我们可以通过这个方法获得点击的item，同时我们调用RecyclerView的另一个方法getChildViewHolder()，可以获得该item的ViewHolder，最后再回调我们定义的虚方法onItemClick()就ok了，这样我们就可以在外部实现该方法来获得item的点击事件了：
-             */
             View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
             if (child != null) {
                 RecyclerView.ViewHolder vh = recyclerView.getChildViewHolder(child);
@@ -48,23 +49,17 @@ public class OnRecyclerItemClickListener implements RecyclerView.OnItemTouchList
         }
 
         @Override
-        public boolean onDoubleTap(MotionEvent e) {
-            return super.onDoubleTap(e);
-        }
-
-        @Override
         public void onLongPress(MotionEvent e) {
             View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
             if (child != null) {
                 RecyclerView.ViewHolder vh = recyclerView.getChildViewHolder(child);
-                onLongClick(vh);
+                onItemLongClick(vh);
             }
         }
     }
 
-    public void onLongClick(RecyclerView.ViewHolder vh) {
-    }
+    public abstract void onItemClick(RecyclerView.ViewHolder vh);
 
-    public void onItemClick(RecyclerView.ViewHolder vh) {
-    }
+    public abstract void onItemLongClick(RecyclerView.ViewHolder vh);
+
 }

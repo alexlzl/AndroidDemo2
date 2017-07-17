@@ -9,17 +9,12 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/CoordinatorLayout" />
+            <option value="$PROJECT_DIR$/DragRecyclerView" />
             <option value="$PROJECT_DIR$/Fragmenttest" />
+            <option value="$PROJECT_DIR$/WindowManager" />
             <option value="$PROJECT_DIR$/java" />
             <option value="$PROJECT_DIR$/任务栈" />
             <option value="$PROJECT_DIR$/双进程守护" />
-            <option value="$PROJECT_DIR$/可折叠ToolBar" />
-            <option value="$PROJECT_DIR$/广播" />
-            <option value="$PROJECT_DIR$/指示器" />
-            <option value="$PROJECT_DIR$/指示器lib" />
-            <option value="$PROJECT_DIR$/绘制图形" />
-            <option value="$PROJECT_DIR$/视图分析" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

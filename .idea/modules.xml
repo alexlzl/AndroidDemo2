@@ -2,18 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CoordinatorLayout/CoordinatorLayout.iml" filepath="$PROJECT_DIR$/CoordinatorLayout/CoordinatorLayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DragRecyclerView/DragRecyclerView.iml" filepath="$PROJECT_DIR$/DragRecyclerView/DragRecyclerView.iml" />
       <module fileurl="file://$PROJECT_DIR$/Fragmenttest/Fragmenttest.iml" filepath="$PROJECT_DIR$/Fragmenttest/Fragmenttest.iml" />
       <module fileurl="file://$PROJECT_DIR$/Project.iml" filepath="$PROJECT_DIR$/Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WindowManager/WindowManager.iml" filepath="$PROJECT_DIR$/WindowManager/WindowManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/java/java.iml" filepath="$PROJECT_DIR$/java/java.iml" />
       <module fileurl="file://$PROJECT_DIR$/任务栈/任务栈.iml" filepath="$PROJECT_DIR$/任务栈/任务栈.iml" />
       <module fileurl="file://$PROJECT_DIR$/双进程守护/双进程守护.iml" filepath="$PROJECT_DIR$/双进程守护/双进程守护.iml" />
-      <module fileurl="file://$PROJECT_DIR$/可折叠ToolBar/可折叠ToolBar.iml" filepath="$PROJECT_DIR$/可折叠ToolBar/可折叠ToolBar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/广播/广播.iml" filepath="$PROJECT_DIR$/广播/广播.iml" />
-      <module fileurl="file://$PROJECT_DIR$/指示器/指示器.iml" filepath="$PROJECT_DIR$/指示器/指示器.iml" />
-      <module fileurl="file://$PROJECT_DIR$/指示器lib/指示器lib.iml" filepath="$PROJECT_DIR$/指示器lib/指示器lib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/绘制图形/绘制图形.iml" filepath="$PROJECT_DIR$/绘制图形/绘制图形.iml" />
-      <module fileurl="file://$PROJECT_DIR$/视图分析/视图分析.iml" filepath="$PROJECT_DIR$/视图分析/视图分析.iml" />
     </modules>
   </component>
 </project>

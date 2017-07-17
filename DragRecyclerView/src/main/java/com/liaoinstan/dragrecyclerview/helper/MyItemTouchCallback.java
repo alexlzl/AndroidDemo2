@@ -6,17 +6,52 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.liaoinstan.dragrecyclerview.R;
+import com.liaoinstan.dragrecyclerview.adapter.RecyclerAdapter;
+import com.liaoinstan.dragrecyclerview.entity.Item;
+
+import java.util.List;
 
 /**
- * Created by Administrator on 2016/4/12.
+ * //设置item是否处理拖拽事件和滑动事件，以及拖拽和滑动操作的方向
+ * public int getMovementFlags (RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder)
+ * <p>
+ * <p>
+ * 当用户从item原来的位置拖动可以拖动的item到新位置的过程中调用
+ *
+ * @recyclerView
+ * @viewHolder 拖动的 item
+ * @target 目标 item
+ * <p>
+ * public boolean onMove (RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
+ * <p>
+ * RecyclerView调用onDraw时调用，如果想自定义item对用户互动的响应,可以重写该方法
+ * @dx item 滑动的距离
+ * <p>
+ * public void onChildDraw (Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive)
  */
 public class MyItemTouchCallback extends ItemTouchHelper.Callback {
 
     private ItemTouchAdapter itemTouchAdapter;
-    public MyItemTouchCallback(ItemTouchAdapter itemTouchAdapter){
+    private boolean up;
+    List<Item> mresults;
+    ViewGroup mparent;
+
+    public MyItemTouchCallback(ItemTouchAdapter itemTouchAdapter, List<Item> results, ViewGroup parent) {
         this.itemTouchAdapter = itemTouchAdapter;
+        mresults = results;
+        mparent=parent;
     }
 
+    /**
+     * 上面的代码完成了基本功能，但实际的产品需要往往可能会有些不一样，比如说，产品希望，有一些item可以拖拽，一些item无法拖拽，就如上图的“更多”是无法拖拽的。这个咋办呢？
+     *
+     * @return
+     */
     @Override
     public boolean isLongPressDragEnabled() {
         return false;
@@ -27,7 +62,13 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
         return true;
     }
 
-
+    /**
+     * getMovementFlags用于设置是否处理拖拽事件和滑动事件，以及拖拽和滑动操作的方向，比如如果是列表类型的RecyclerView，拖拽只有UP、DOWN两个方向，而如果是网格类型的则有UP、DOWN、LEFT、RIGHT四个方向：
+     *
+     * @param recyclerView
+     * @param viewHolder
+     * @return
+     */
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
@@ -46,7 +87,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
         int fromPosition = viewHolder.getAdapterPosition();//得到拖动ViewHolder的position
         int toPosition = target.getAdapterPosition();//得到目标ViewHolder的position
-        itemTouchAdapter.onMove(fromPosition,toPosition);
+        itemTouchAdapter.onMove(fromPosition, toPosition);
         return true;
     }
 
@@ -64,8 +105,61 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
             viewHolder.itemView.setAlpha(alpha);
             viewHolder.itemView.setTranslationX(dX);
         } else {
+
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            onDragListener.dragState(true);//显示删除区域
+
+            if (isToBottom(viewHolder.itemView,dY)) {//拖到删除处
+                onDragListener.deleteState(true,dY,viewHolder.itemView.getHeight());
+                if (up) {//在删除处放手，则删除item
+                    viewHolder.itemView.setVisibility(View.INVISIBLE);//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
+                    mresults.remove(viewHolder.getAdapterPosition());
+                    ((RecyclerAdapter) itemTouchAdapter).notifyItemRemoved(viewHolder.getAdapterPosition());
+                    initData();
+                    return;
+                }
+            } else {//没有到删除处
+                if (View.INVISIBLE == viewHolder.itemView.getVisibility()) {//如果viewHolder不可见，则表示用户放手，重置删除区域状态
+                    onDragListener.dragState(false);
+                }
+                onDragListener.deleteState(false,dY,viewHolder.itemView.getHeight());
+            }
         }
+        if (null == onDragListener) {
+            return;
+        }
+//        onDragListener.dragState(true);//显示删除区域
+//
+//        if (dY >= (recyclerView.getHeight()
+//                - viewHolder.itemView.getBottom()//item底部距离recyclerView顶部高度
+//                - CommonUtils.getPixelById(R.dimen.article_post_delete))) {//拖到删除处
+//            onDragListener.deleteState(true);
+//            if (up) {//在删除处放手，则删除item
+//                viewHolder.itemView.setVisibility(View.INVISIBLE);//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
+//                mresults.remove(viewHolder.getAdapterPosition());
+//                ((RecyclerAdapter)itemTouchAdapter).notifyItemRemoved(viewHolder.getAdapterPosition());
+//                initData();
+//                return;
+//            }
+//        } else {//没有到删除处
+//            if (View.INVISIBLE == viewHolder.itemView.getVisibility()) {//如果viewHolder不可见，则表示用户放手，重置删除区域状态
+//                onDragListener.dragState(false);
+//            }
+//            onDragListener.deleteState(false);
+//        }
+    }
+
+    public boolean isToBottom(View itemView,float dy){
+        TextView bottomtv= (TextView) mparent.findViewById(R.id.bottom_tv);
+        //底部到父视图距离
+        int height=bottomtv.getTop();
+        //item到recyclerview顶部距离
+        int itemTop=itemView.getTop();
+        int  distance=height-itemTop;
+        if(dy>=distance){
+            return true;
+        }
+        return  false;
     }
 
     @Override
@@ -81,6 +175,9 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
             }
             viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
         }
+        if (ItemTouchHelper.ACTION_STATE_DRAG == actionState && onDragListener != null) {
+            onDragListener.dragState(true);
+        }
         super.onSelectedChanged(viewHolder, actionState);
     }
 
@@ -93,25 +190,53 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
         if (bkcolor != -1) viewHolder.itemView.setBackgroundColor(bkcolor);
         //viewHolder.itemView.setBackgroundColor(0);
 
-        if (onDragListener!=null){
+        if (onDragListener != null) {
             onDragListener.onFinishDrag();
         }
+    }
+
+    /**
+     * 重置
+     */
+    private void initData() {
+        if (onDragListener != null) {
+            onDragListener.deleteState(false,0,0);
+            onDragListener.dragState(false);
+        }
+        up = false;
     }
 
     private Drawable background = null;
     private int bkcolor = -1;
 
     private OnDragListener onDragListener;
+
     public MyItemTouchCallback setOnDragListener(OnDragListener onDragListener) {
         this.onDragListener = onDragListener;
         return this;
     }
-    public interface OnDragListener{
+
+    public interface OnDragListener {
         void onFinishDrag();
+
+        /**
+         * 用户是否将 item拖动到删除处，根据状态改变颜色
+         *
+         * @param delete
+         */
+        void deleteState(boolean delete,float dy,int itemh);
+
+        /**
+         * 是否于拖拽状态
+         *
+         * @param start
+         */
+        void dragState(boolean start);
     }
 
     public interface ItemTouchAdapter {
-        void onMove(int fromPosition,int toPosition);
+        void onMove(int fromPosition, int toPosition);
+
         void onSwiped(int position);
     }
 }

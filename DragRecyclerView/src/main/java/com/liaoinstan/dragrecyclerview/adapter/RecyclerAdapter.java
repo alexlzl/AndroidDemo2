@@ -50,6 +50,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onMove(int fromPosition, int toPosition) {
+        /**
+         * 位置进行交换，移动
+         */
         if (fromPosition==results.size()-1 || toPosition==results.size()-1){
             return;
         }
