@@ -88,9 +88,6 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         if (null == onDragListener) {
             return;
         }
-        //开始拖拽显示删除视图
-//        onDragListener.isStartDrag(true);
-
         /**
          * 获取ITEM坐标
          */
@@ -100,9 +97,9 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
          * 判断是否item拖拽出下边界======1
          */
         if (isBeyondRecyclerView(dY, viewHolder.itemView)) {
-            onDragListener.isBeyondBounds(true, itemViewPosition[0], itemViewPosition[1], viewHolder.itemView.getWidth(), viewHolder.itemView.getHeight(),viewHolder.itemView);
+            onDragListener.isBeyondBounds(true, itemViewPosition[0], itemViewPosition[1], viewHolder.itemView.getWidth(), viewHolder.itemView.getHeight(), viewHolder.itemView);
         } else {
-            onDragListener.isBeyondBounds(false, itemViewPosition[0], itemViewPosition[1], viewHolder.itemView.getWidth(), viewHolder.itemView.getHeight(),viewHolder.itemView);
+            onDragListener.isBeyondBounds(false, itemViewPosition[0], itemViewPosition[1], viewHolder.itemView.getWidth(), viewHolder.itemView.getHeight(), viewHolder.itemView);
         }
         /**
          * 判断是否拖拽到删除区域=======2
@@ -115,6 +112,8 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
             onDragListener.isCanDelete(true);
             if (isDragOver) {//在删除处放手，则删除item
                 viewHolder.itemView.setVisibility(View.INVISIBLE);//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
+                if(viewHolder.getAdapterPosition()==-1)
+                    return;
                 mDataList.remove(viewHolder.getAdapterPosition());
                 ((RecyclerAdapter) itemMoveCallbackAdapter).notifyItemRemoved(viewHolder.getAdapterPosition());
                 initData();
@@ -169,7 +168,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         //item底部到recyclerView顶部距离
         int itemTop = itemView.getBottom();
         int distance = height - itemTop - 30;
-        Log.e("tag", "视图拖动距离=="+dy+"距离删除区域距离=="+distance);
+        Log.e("tag", "视图拖动距离==" + dy + "距离删除区域距离==" + distance);
         if (dy >= distance) {
             return true;
         }
@@ -265,7 +264,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         /**
          * 是否拖拽超出RecyclerView边界
          */
-        void isBeyondBounds(boolean isBeyond, int l, int t, int r, int b,View itemView);
+        void isBeyondBounds(boolean isBeyond, int l, int t, int r, int b, View itemView);
 
     }
 
