@@ -57,14 +57,16 @@
         <!--</LinearLayout>-->
     </LinearLayout>
 
-    <TextView
+    <ImageView
+
+        android:background="@color/colorAccent"
         android:visibility="gone"
         android:layout_centerHorizontal="true"
         android:id="@+id/bottom_tv"
-        android:layout_width="20dp"
-        android:layout_height="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/delete_no"
+        android:src="@drawable/delete_no"
         />
 
 </RelativeLayout>

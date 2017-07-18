@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +28,7 @@ import java.util.List;
 public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.OnDragListener {
 
     private List<ItemEntity> results = new ArrayList();
-    private TextView deleteview;
+    private ImageView deleteview;
     private boolean isOver;// 标记是否松开后产生的拖拽
     public WindowViewManager windowViewManager;
     private RecyclerView recyclerView;
@@ -62,7 +63,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        deleteview = (TextView) view.findViewById(R.id.bottom_tv);
+        deleteview = (ImageView) view.findViewById(R.id.bottom_tv);
         RecyclerAdapter adapter = new RecyclerAdapter(R.layout.item_layout, results);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
@@ -131,9 +132,9 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     @Override
     public void isCanDelete(boolean isCanDelete) {
         if (isCanDelete) {
-            deleteview.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.delete_yes));
+            deleteview.setImageResource(R.drawable.delete_yes);
         } else {
-            deleteview.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.delete_no));
+            deleteview.setImageResource(R.drawable.delete_no);
         }
 
     }

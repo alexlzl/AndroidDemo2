@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gome.app.R;
@@ -158,7 +160,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
      * 判断是否拖拽到底部删除区域
      */
     public boolean isMoveToBottom(View itemView, float dy) {
-        TextView bottomView = (TextView) layoutRoot.findViewById(R.id.bottom_tv);
+        ImageView bottomView = (ImageView) layoutRoot.findViewById(R.id.bottom_tv);
         //底部到父视图距离
         int height = bottomView.getTop();
         //item底部到recyclerView顶部距离
