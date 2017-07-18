@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -71,6 +72,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
      */
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        Log.e("tag","getMovementFlags");
         if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
             final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
             final int swipeFlags = 0;
@@ -83,11 +85,19 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
         }
     }
 
+    /**
+     * 当用户从item原来的位置拖动可以拖动的item到新位置的过程中调用
+     * @param recyclerView
+     * @param viewHolder
+     * @param target
+     * @return
+     */
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
         int fromPosition = viewHolder.getAdapterPosition();//得到拖动ViewHolder的position
         int toPosition = target.getAdapterPosition();//得到目标ViewHolder的position
         itemTouchAdapter.onMove(fromPosition, toPosition);
+        Log.e("tag","onMove");
         return true;
     }
 
@@ -95,10 +105,15 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getAdapterPosition();
         itemTouchAdapter.onSwiped(position);
+        Log.e("tag","onSwiped");
     }
 
+    /**
+     * RecyclerView调用onDraw时调用，如果想自定义item对用户互动的响应,可以重写该方法
+     */
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        Log.e("tag","onChildDraw");
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             //滑动时改变Item的透明度
             final float alpha = 1 - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
@@ -109,15 +124,26 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             onDragListener.dragState(true);//显示删除区域
             /**
+             * 获取当前item移动位置
+             */
+            onDragListener.movie(dX,dY);
+            /**
+             * 获取ITEM坐标
+             */
+            int[] itemposition=new int[2];
+            viewHolder.itemView.getLocationOnScreen(itemposition);
+//            onDragListener.itemLocation(itemposition[0],itemposition[1],viewHolder.itemView.getWidth(),viewHolder.itemView.getHeight());
+            onDragListener.itemLocation(itemposition[0],itemposition[1],viewHolder.itemView.getWidth(),viewHolder.itemView.getHeight());
+            /**
              * 判断是否item拖拽出下边界======
              */
             int recyclerh = mparent.findViewById(R.id.recycler).getHeight();
             //itemview高度
             int itemh = viewHolder.itemView.getHeight();
             if (isOutBund(dY, viewHolder.itemView)) {
-                onDragListener.isOutBunds(true, recyclerh - itemh, viewHolder.getLayoutPosition());
+                onDragListener.isOutBunds(true, recyclerh - itemh, viewHolder.getLayoutPosition(),itemposition[0],itemposition[1],viewHolder.itemView.getWidth(),viewHolder.itemView.getHeight());
             } else {
-                onDragListener.isOutBunds(false, recyclerh - itemh, viewHolder.getLayoutPosition());
+                onDragListener.isOutBunds(false, recyclerh - itemh, viewHolder.getLayoutPosition(),itemposition[0],itemposition[1],viewHolder.itemView.getWidth(),viewHolder.itemView.getHeight());
             }
             if (isToBottom(viewHolder.itemView, dY)) {//拖到删除处
                 onDragListener.deleteState(true, dY, viewHolder.itemView.getHeight());
@@ -138,25 +164,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
         if (null == onDragListener) {
             return;
         }
-//        onDragListener.dragState(true);//显示删除区域
-//
-//        if (dY >= (recyclerView.getHeight()
-//                - viewHolder.itemView.getBottom()//item底部距离recyclerView顶部高度
-//                - CommonUtils.getPixelById(R.dimen.article_post_delete))) {//拖到删除处
-//            onDragListener.deleteState(true);
-//            if (up) {//在删除处放手，则删除item
-//                viewHolder.itemView.setVisibility(View.INVISIBLE);//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
-//                mresults.remove(viewHolder.getAdapterPosition());
-//                ((RecyclerAdapter)itemTouchAdapter).notifyItemRemoved(viewHolder.getAdapterPosition());
-//                initData();
-//                return;
-//            }
-//        } else {//没有到删除处
-//            if (View.INVISIBLE == viewHolder.itemView.getVisibility()) {//如果viewHolder不可见，则表示用户放手，重置删除区域状态
-//                onDragListener.dragState(false);
-//            }
-//            onDragListener.deleteState(false);
-//        }
+
     }
 
     /**
@@ -194,8 +202,14 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
 
     }
 
+    /**
+     * 当长按选中item的时候（拖拽开始的时候）调用
+     * @param viewHolder
+     * @param actionState
+     */
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+        Log.e("tag","onSelectedChanged");
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
             if (background == null && bkcolor == -1) {
                 Drawable drawable = viewHolder.itemView.getBackground();
@@ -213,10 +227,15 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
         super.onSelectedChanged(viewHolder, actionState);
     }
 
+    /**
+     * 当用户与item的交互结束并且item也完成了动画时调用
+     * @param recyclerView
+     * @param viewHolder
+     */
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
-
+        Log.e("tag","clearView");
         viewHolder.itemView.setAlpha(1.0f);
         if (background != null) viewHolder.itemView.setBackgroundDrawable(background);
         if (bkcolor != -1) viewHolder.itemView.setBackgroundColor(bkcolor);
@@ -265,7 +284,11 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
          */
         void dragState(boolean start);
 
-        void isOutBunds(boolean isOut, int height, int position);
+        void isOutBunds(boolean isOut, int height, int position,int x,int y,int w,int h);
+
+        void  movie(float dx,float dy);
+
+        void itemLocation(int x,int y,int w,int h);
     }
 
     public interface ItemTouchAdapter {

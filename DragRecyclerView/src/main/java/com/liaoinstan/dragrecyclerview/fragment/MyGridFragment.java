@@ -39,6 +39,8 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
     TextView outbunds;
     TextView mposition;
     RelativeLayout overview;
+    TextView movied;
+    TextView locationd;
     boolean isover;// 标记是否松开拖拽
 
 
@@ -61,14 +63,14 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
 //                results.add(new Item(i * 8 + 6, "电影", R.drawable.takeout_ic_category_store));
 //                results.add(new Item(i * 8 + 7, "游戏", R.drawable.takeout_ic_category_sweet));
 //            }
-            results.add(new Item(0, "收款", R.drawable.takeout_ic_category_brand));
-            results.add(new Item(1, "转账", R.drawable.takeout_ic_category_flower));
-            results.add(new Item(2, "余额宝", R.drawable.takeout_ic_category_fruit));
-            results.add(new Item(3, "手机充值", R.drawable.takeout_ic_category_medicine));
-            results.add(new Item(4, "医疗", R.drawable.takeout_ic_category_motorcycle));
-            results.add(new Item(5, "彩票", R.drawable.takeout_ic_category_public));
-            results.add(new Item(6, "电影", R.drawable.takeout_ic_category_store));
-            results.add(new Item(7, "游戏", R.drawable.takeout_ic_category_sweet));
+            results.add(new Item(0, "收款", R.drawable.j));
+            results.add(new Item(1, "转账", R.drawable.j));
+            results.add(new Item(2, "余额宝", R.drawable.j));
+            results.add(new Item(3, "手机充值", R.drawable.j));
+            results.add(new Item(4, "医疗", R.drawable.j));
+            results.add(new Item(5, "彩票", R.drawable.j));
+            results.add(new Item(6, "电影", R.drawable.j));
+            results.add(new Item(7, "游戏", R.drawable.j));
         }
         results.remove(results.size() - 1);
         results.add(new Item(results.size(), "更多", R.drawable.takeout_ic_more));
@@ -88,11 +90,15 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        movied= (TextView) view.findViewById(R.id.movie_d);
+        locationd= (TextView) view.findViewById(R.id.location_d);
         overview = (RelativeLayout) view.findViewById(R.id.over_view);
         mposition = (TextView) view.findViewById(R.id.position);
         dragstate = (TextView) view.findViewById(R.id.dragstate);
         deletestate = (TextView) view.findViewById(R.id.deletestate);
         outbunds = (TextView) view.findViewById(R.id.outbunds);
+        initoverview();
         RecyclerAdapter adapter = new RecyclerAdapter(R.layout.item_grid, results);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
@@ -134,7 +140,7 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
         Log.e("tag","完成拖拽");
         isover=true;
         ACache.get(getActivity()).put("items", (ArrayList<Item>) results);
-        overview.setVisibility(View.GONE);
+//        overview.setVisibility(View.GONE);
     }
 
     @Override
@@ -158,15 +164,20 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
     }
 
     @Override
-    public void isOutBunds(boolean isOut, int h, int position) {
+    public void isOutBunds(boolean isOut, int dy, int position,int x,int y,int w,int h) {
         if (isOut) {
-            outbunds.setText("拖拽出边界" + "距离边界=" + h);
+            /**
+             * 超出边界============
+             */
+            outbunds.setText("拖拽出边界" + "距离边界=" + dy);
+            overview.setVisibility(View.VISIBLE);
+            updateoverview(x,y,w,h);
             if(!isover){
                 /**
                  * 非松开拖拽后的回调，显示遮罩视图
                  */
-                addview();
-                overview.setVisibility(View.VISIBLE);
+//                addview(0,0,0,0);
+//                overview.setVisibility(View.VISIBLE);
                 isover=false;
                 Log.e("tag"," isover=false;");
             }else {
@@ -181,19 +192,39 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
 //            Toast.makeText(this.getActivity(), "show", Toast.LENGTH_LONG).show();
 
         } else {
-            outbunds.setText("未拖拽出边界" + "距离边界=" + h);
+            outbunds.setText("未拖拽出边界" + "距离边界=" + dy);
             Log.e("tag","未超出边界");
             overview.setVisibility(View.GONE);
         }
         mposition.setText(position + "");
     }
 
-    public void addview() {
-        ImageView imageView = new ImageView(this.getActivity());
-        imageView.setImageResource(R.drawable.item_img);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-        overview.addView(imageView,layoutParams);
+    @Override
+    public void movie(float dx, float dy) {
+        movied.setText("X移动=="+dx+"Y移动=="+dy);
 
     }
+
+    @Override
+    public void itemLocation(int x, int y,int w,int h) {
+                locationd.setText("item x==="+x+"item y==="+y);
+//        addview(x,y,w,h);
+    }
+
+    public void updateoverview(int x,int y,int w,int h) {
+        overview.findViewById(R.id.my_view).layout(x,y-h+80,x+w,y+80);
+//        overview.findViewById(R.id.my_view).layout(200,500,300,600);
+    }
+
+    public void initoverview(){
+        ImageView imageView = new ImageView(this.getActivity());
+        imageView.setId(R.id.my_view);
+        imageView.setImageResource(R.drawable.j);
+        imageView.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(360, 360);
+        overview.addView(imageView,layoutParams);
+    }
+
+
 }

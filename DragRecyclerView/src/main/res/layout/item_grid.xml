@@ -29,12 +29,13 @@
 
         <ImageView
             android:id="@+id/item_img"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@drawable/takeout_ic_category_brand" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/item_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
