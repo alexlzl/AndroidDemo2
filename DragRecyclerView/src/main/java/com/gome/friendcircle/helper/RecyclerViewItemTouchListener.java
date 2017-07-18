@@ -1,4 +1,4 @@
-package com.liaoinstan.dragrecyclerview.helper;
+package com.gome.friendcircle.helper;
 
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
@@ -7,11 +7,11 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
-public class OnRecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+public class RecyclerViewItemTouchListener implements RecyclerView.OnItemTouchListener {
     private GestureDetectorCompat mGestureDetector;
     private RecyclerView recyclerView;
 
-    public OnRecyclerItemClickListener(RecyclerView recyclerView) {
+    public RecyclerViewItemTouchListener(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
         mGestureDetector = new GestureDetectorCompat(recyclerView.getContext(), new ItemTouchHelperGestureListener());
     }

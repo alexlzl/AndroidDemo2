@@ -1,4 +1,4 @@
-package com.liaoinstan.dragrecyclerview.utils;
+package com.gome.friendcircle.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

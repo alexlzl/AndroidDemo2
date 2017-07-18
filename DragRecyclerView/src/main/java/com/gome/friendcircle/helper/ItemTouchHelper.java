@@ -1,19 +1,18 @@
-package com.liaoinstan.dragrecyclerview.helper;
+package com.gome.friendcircle.helper;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.liaoinstan.dragrecyclerview.R;
-import com.liaoinstan.dragrecyclerview.adapter.RecyclerAdapter;
-import com.liaoinstan.dragrecyclerview.entity.Item;
+import com.gome.app.R;
+import com.gome.friendcircle.adapter.RecyclerAdapter;
+import com.gome.friendcircle.entity.ItemEntity;
 
 import java.util.List;
 
@@ -35,14 +34,14 @@ import java.util.List;
  * <p>
  * public void onChildDraw (Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive)
  */
-public class MyItemTouchCallback extends ItemTouchHelper.Callback {
+public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchHelper.Callback {
 
     private ItemTouchAdapter itemTouchAdapter;
     private boolean up;
-    List<Item> mresults;
+    List<ItemEntity> mresults;
     ViewGroup mparent;
 
-    public MyItemTouchCallback(ItemTouchAdapter itemTouchAdapter, List<Item> results, ViewGroup parent) {
+    public ItemTouchHelper(ItemTouchAdapter itemTouchAdapter, List<ItemEntity> results, ViewGroup parent) {
         this.itemTouchAdapter = itemTouchAdapter;
         mresults = results;
         mparent = parent;
@@ -74,11 +73,11 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         Log.e("tag","getMovementFlags");
         if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
-            final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+            final int dragFlags = android.support.v7.widget.helper.ItemTouchHelper.UP | android.support.v7.widget.helper.ItemTouchHelper.DOWN | android.support.v7.widget.helper.ItemTouchHelper.LEFT | android.support.v7.widget.helper.ItemTouchHelper.RIGHT;
             final int swipeFlags = 0;
             return makeMovementFlags(dragFlags, swipeFlags);
         } else {
-            final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+            final int dragFlags = android.support.v7.widget.helper.ItemTouchHelper.UP | android.support.v7.widget.helper.ItemTouchHelper.DOWN;
             //final int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
             final int swipeFlags = 0;
             return makeMovementFlags(dragFlags, swipeFlags);
@@ -114,7 +113,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         Log.e("tag","onChildDraw");
-        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+        if (actionState == android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_SWIPE) {
             //滑动时改变Item的透明度
             final float alpha = 1 - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
             viewHolder.itemView.setAlpha(alpha);
@@ -210,7 +209,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         Log.e("tag","onSelectedChanged");
-        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+        if (actionState != android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE) {
             if (background == null && bkcolor == -1) {
                 Drawable drawable = viewHolder.itemView.getBackground();
                 if (drawable == null) {
@@ -221,7 +220,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
             }
             viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
         }
-        if (ItemTouchHelper.ACTION_STATE_DRAG == actionState && onDragListener != null) {
+        if (android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_DRAG == actionState && onDragListener != null) {
             onDragListener.dragState(true);
         }
         super.onSelectedChanged(viewHolder, actionState);
@@ -262,7 +261,7 @@ public class MyItemTouchCallback extends ItemTouchHelper.Callback {
 
     private OnDragListener onDragListener;
 
-    public MyItemTouchCallback setOnDragListener(OnDragListener onDragListener) {
+    public ItemTouchHelper setOnDragListener(OnDragListener onDragListener) {
         this.onDragListener = onDragListener;
         return this;
     }

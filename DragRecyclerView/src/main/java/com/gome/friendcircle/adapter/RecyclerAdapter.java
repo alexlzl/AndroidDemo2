@@ -1,4 +1,4 @@
-package com.liaoinstan.dragrecyclerview.adapter;
+package com.gome.friendcircle.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,11 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.liaoinstan.dragrecyclerview.entity.Item;
-import com.liaoinstan.dragrecyclerview.R;
-import com.liaoinstan.dragrecyclerview.helper.MyItemTouchCallback;
+import com.gome.app.R;
+import com.gome.friendcircle.entity.ItemEntity;
+import com.gome.friendcircle.helper.ItemTouchHelper;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,13 +18,13 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/4/12.
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> implements MyItemTouchCallback.ItemTouchAdapter {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> implements ItemTouchHelper.ItemTouchAdapter {
 
     private Context context;
     private int src;
-    private List<Item> results;
+    private List<ItemEntity> results;
 
-    public RecyclerAdapter(int src,List<Item> results){
+    public RecyclerAdapter(int src,List<ItemEntity> results){
         this.results = results;
         this.src = src;
     }
@@ -40,7 +39,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.imageView.setImageResource(results.get(position).getImg());
-        holder.textView.setText(results.get(position).getName());
     }
 
     @Override
@@ -76,7 +74,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView textView;
         public ImageView imageView;
 
         public MyViewHolder(View itemView) {
@@ -86,7 +83,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
             layoutParams.height = width/4;
             itemView.setLayoutParams(layoutParams);
-            textView = (TextView) itemView.findViewById(R.id.item_text);
             imageView = (ImageView) itemView.findViewById(R.id.item_img);
         }
     }

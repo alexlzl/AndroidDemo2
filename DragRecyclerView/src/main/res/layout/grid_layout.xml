@@ -65,11 +65,11 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/delete_no"
         />
-    <RelativeLayout
-        android:alpha="0.5"
-        android:visibility="visible"
-        android:id="@+id/over_view"
-        android:background="@android:color/transparent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></RelativeLayout>
+    <!--<RelativeLayout-->
+        <!--android:alpha="0.5"-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/over_view"-->
+        <!--android:background="@android:color/transparent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"></RelativeLayout>-->
 </RelativeLayout>
