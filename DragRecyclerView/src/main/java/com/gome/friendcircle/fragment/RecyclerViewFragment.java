@@ -120,7 +120,11 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         Log.e("tag", "完成拖拽");
         isOver = true;
         deleteview.setVisibility(View.GONE);
-        itemView.setVisibility(View.VISIBLE);
+        if(null!=itemView){
+            itemView.setVisibility(View.VISIBLE);
+        }
+
+
         hideWindowView();
     }
 
@@ -176,7 +180,6 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
                  */
                 isOver = false;
                 hideWindowView();
-                itemView.setVisibility(View.VISIBLE);
             }
 
         } else {

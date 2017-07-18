@@ -22,7 +22,7 @@ import java.util.List;
 public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchHelper.Callback {
 
     private ItemMoveCallbackAdapter itemMoveCallbackAdapter;
-    private boolean up=true;
+    private boolean isDragOver;//标记手指是否放开
     private List<ItemEntity> mDataList;
     private ViewGroup layoutRoot;
     private Drawable background = null;
@@ -84,7 +84,6 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
      */
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        Log.e("tag", "onChildDraw");
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         if (null == onDragListener) {
             return;
@@ -112,8 +111,9 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
             /**
              * 到达删除区域====
              */
+            Log.e("tag", "onChildDraw==到达删除区域");
             onDragListener.isCanDelete(true);
-            if (up) {//在删除处放手，则删除item
+            if (isDragOver) {//在删除处放手，则删除item
                 viewHolder.itemView.setVisibility(View.INVISIBLE);//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
                 mDataList.remove(viewHolder.getAdapterPosition());
                 ((RecyclerAdapter) itemMoveCallbackAdapter).notifyItemRemoved(viewHolder.getAdapterPosition());
@@ -124,6 +124,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
             /**
              * 未到达删除区域====
              */
+            Log.e("tag", "onChildDraw==未到达删除区域");
             if (View.INVISIBLE == viewHolder.itemView.getVisibility()) {//如果viewHolder不可见，则表示用户放手，重置删除区域状态
                 onDragListener.isStartDrag(false);
             }
@@ -138,8 +139,9 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
      */
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-        Log.e("tag", "onSelectedChanged");
+
         if (actionState != android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE) {
+            Log.e("tag", "onSelectedChanged===ACTION_STATE_IDLE");
             if (background == null && bkcolor == -1) {
                 Drawable drawable = viewHolder.itemView.getBackground();
                 if (drawable == null) {
@@ -151,6 +153,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
             viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
         }
         if (android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_DRAG == actionState && onDragListener != null) {
+            Log.e("tag", "onSelectedChanged===ACTION_STATE_DRAG");
             onDragListener.isStartDrag(true);
         }
         super.onSelectedChanged(viewHolder, actionState);
@@ -166,6 +169,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         //item底部到recyclerView顶部距离
         int itemTop = itemView.getBottom();
         int distance = height - itemTop - 30;
+        Log.e("tag", "视图拖动距离=="+dy+"距离删除区域距离=="+distance);
         if (dy >= distance) {
             return true;
         }
@@ -188,6 +192,15 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
 
     }
 
+    /**
+     * 手指放开回调
+     */
+    @Override
+    public long getAnimationDuration(RecyclerView recyclerView, int animationType, float animateDx, float animateDy) {
+        Log.e("tag", "手指松开====isDragOver = true");
+        isDragOver = true;
+        return super.getAnimationDuration(recyclerView, animationType, animateDx, animateDy);
+    }
 
     /**
      * 当用户与item的交互结束并且item也完成了动画时调用
@@ -195,7 +208,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
-        Log.e("tag", "clearView");
+        Log.e("tag", "交互完成clearView");
         viewHolder.itemView.setAlpha(1.0f);
         if (background != null) viewHolder.itemView.setBackgroundDrawable(background);
         if (bkcolor != -1) viewHolder.itemView.setBackgroundColor(bkcolor);
@@ -203,6 +216,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         if (onDragListener != null) {
             onDragListener.onDragFinished(viewHolder.itemView);
         }
+        ((RecyclerAdapter) itemMoveCallbackAdapter).notifyDataSetChanged();
     }
 
     /**
@@ -212,8 +226,9 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         if (onDragListener != null) {
             onDragListener.isCanDelete(false);
             onDragListener.isStartDrag(false);
+            onDragListener.onDragFinished(null);
         }
-        up = false;
+        isDragOver = false;
     }
 
 
