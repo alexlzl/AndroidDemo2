@@ -127,11 +127,12 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
      * 拖拽是否松开
      */
     @Override
-    public void onDragFinished() {
+    public void onDragFinished(View itemView) {
         //存入缓存
         Log.e("tag", "完成拖拽");
         isOver = true;
         deleteview.setVisibility(View.GONE);
+        itemView.setVisibility(View.VISIBLE);
         hideWindowView();
     }
 
@@ -169,9 +170,10 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     public void isBeyondBounds(boolean isBeyond, int l, int t, int r, int b,View itemView) {
         if (isBeyond) {
             /**
-             * 拖拽超出边界，更新遮罩层的位置
+             * 拖拽超出边界，显示遮罩层
              */
-            updateWindowView(l, t, (ImageView) itemView.findViewById(R.id.item_img));
+            itemView.setVisibility(View.GONE);
+            showWindowView(l, t, (ImageView) itemView.findViewById(R.id.item_img));
             if (!isOver) {
                 /**
                  * 非松开拖拽后的回调，显示遮罩视图
@@ -183,6 +185,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
                  */
                 isOver = false;
                 hideWindowView();
+                itemView.setVisibility(View.VISIBLE);
             }
 
         } else {
@@ -195,16 +198,14 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     /**
      * 根据拖拽ITEM位置更新Window层视图位置
      */
-    public void updateWindowView(int x, int y,ImageView imageView) {
-        windowViewManager.updateOverViewLayout(x, y - CommonUtil.getStatusBarHeight(getActivity()),imageView.getDrawable());
+    public void showWindowView(int x, int y,ImageView imageView) {
+        windowViewManager.showOverViewLayout(x, y - CommonUtil.getStatusBarHeight(getActivity()),imageView.getDrawable());
     }
 
     public void hideWindowView(){
-        windowViewManager.hideFloatView();
+        windowViewManager.hideOverViewLayout();
     }
-    public void showWindowView(){
-        windowViewManager.showFloatView();
-    }
+
 
 
 }

@@ -35,18 +35,30 @@ public class WindowViewManager {
         params.width = w;
         params.height = w;
         childView.setVisibility(View.VISIBLE);
-        params.alpha= 0.0f;
-        params.gravity=Gravity.LEFT|Gravity.TOP;
+        params.alpha = 0.0f;
+        params.gravity = Gravity.LEFT | Gravity.TOP;
         wm.addView(childView, params);
     }
 
-    public void updateOverViewLayout(int x, int y, Drawable drawable) {
+    public void showOverViewLayout(int x, int y, Drawable drawable) {
         mChildView.setBackgroundDrawable(drawable);
         mChildView.setVisibility(View.VISIBLE);
-        params.alpha= 1f;
+        params.alpha = 1f;
         params.x = x;
         params.y = y;
         wm.updateViewLayout(mChildView, params);
+    }
+    /**
+     * 隐藏悬浮View
+     */
+    public void hideOverViewLayout() {
+        if (wm != null && mChildView != null && mChildView.isShown()) {
+//            mChildView.setVisibility(View.GONE);
+            params.gravity = Gravity.LEFT | Gravity.TOP;
+            mChildView.setVisibility(View.GONE);
+            params.alpha = 0f;
+            wm.updateViewLayout(mChildView, params);
+        }
     }
     /**
      * 将悬浮View从WindowManager中移除，需要与createFloatView()成对出现
@@ -60,25 +72,7 @@ public class WindowViewManager {
         }
     }
 
-    /**
-     * 隐藏悬浮View
-     */
-    public void hideFloatView() {
-        if (wm != null && mChildView != null && mChildView.isShown()) {
-//            mChildView.setVisibility(View.GONE);
-            params.gravity=Gravity.LEFT|Gravity.TOP;
-            mChildView.setVisibility(View.GONE);
-            params.alpha= 0f;
-                      wm.updateViewLayout(mChildView, params);
-        }
-    }
 
-    /**
-     * 显示悬浮View
-     */
-    public void showFloatView() {
-        if (wm != null && mChildView != null && !mChildView.isShown()) {
-            mChildView.setVisibility(View.VISIBLE);
-        }
-    }
+
+
 }

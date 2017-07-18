@@ -199,7 +199,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         if (bkcolor != -1) viewHolder.itemView.setBackgroundColor(bkcolor);
         //viewHolder.itemView.setBackgroundColor(0);
         if (onDragListener != null) {
-            onDragListener.onDragFinished();
+            onDragListener.onDragFinished(viewHolder.itemView);
         }
     }
 
@@ -233,7 +233,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         /**
          * 拖拽结束
          */
-        void onDragFinished();
+        void onDragFinished(View itemView);
 
         /**
          * 用户是否将 item拖动到删除处，根据状态改变颜色
