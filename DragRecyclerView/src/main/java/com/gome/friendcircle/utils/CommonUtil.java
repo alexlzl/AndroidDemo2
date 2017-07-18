@@ -2,6 +2,7 @@ package com.gome.friendcircle.utils;
 
 import android.app.Activity;
 import android.app.Service;
+import android.content.Context;
 import android.os.Vibrator;
 
 /**
@@ -9,7 +10,7 @@ import android.os.Vibrator;
  * @author Administrator
  * 使用必须添加权限：<uses-permission android:name="android.permission.VIBRATE" />
  */
-public class VibratorUtil {
+public class CommonUtil {
 
     /**
      * final Activity activity  ：调用该方法的Activity实例
@@ -24,6 +25,19 @@ public class VibratorUtil {
     public static void Vibrate(final Activity activity, long[] pattern, boolean isRepeat) {
         Vibrator vib = (Vibrator) activity.getSystemService(Service.VIBRATOR_SERVICE);
         vib.vibrate(pattern, isRepeat ? 1 : -1);
+    }
+    public static int getStatusBarHeight(Context context) {
+        /**
+         * 获取状态栏高度——方法1
+         * */
+        int statusBarHeight1 = -1;
+//获取status_bar_height资源的ID
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            statusBarHeight1 = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight1;
     }
 
 }

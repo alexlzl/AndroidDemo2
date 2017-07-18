@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ((RecyclerViewFragment) fragment).windowSet.removeFloatView();
+        ((RecyclerViewFragment) fragment).windowViewManager.removeFloatView();
         super.onBackPressed();
     }
 }

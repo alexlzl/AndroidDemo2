@@ -15,30 +15,29 @@ import com.gome.friendcircle.helper.ItemTouchHelper;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Administrator on 2016/4/12.
- */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> implements ItemTouchHelper.ItemTouchAdapter {
+
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> implements ItemTouchHelper.ItemMoveCallbackAdapter {
 
     private Context context;
-    private int src;
+    private int layoutRes;
     private List<ItemEntity> results;
 
     public RecyclerAdapter(int src,List<ItemEntity> results){
         this.results = results;
-        this.src = src;
+        this.layoutRes = src;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(src, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(layoutRes, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        holder.imageView.setImageResource(results.get(position).getImg());
+//        holder.imageView.setImageResource(results.get(position).getImg());
+        holder.imageView.setImageDrawable(context.getResources().getDrawable(results.get(position).getImg()));
     }
 
     @Override
@@ -46,11 +45,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         return results.size();
     }
 
+    /**
+     * 位置进行交换，移动
+     * @param fromPosition
+     * @param toPosition
+     */
     @Override
     public void onMove(int fromPosition, int toPosition) {
-        /**
-         * 位置进行交换，移动
-         */
+
         if (fromPosition==results.size()-1 || toPosition==results.size()-1){
             return;
         }
@@ -66,11 +68,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         notifyItemMoved(fromPosition, toPosition);
     }
 
-    @Override
-    public void onSwiped(int position) {
-        results.remove(position);
-        notifyItemRemoved(position);
-    }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 

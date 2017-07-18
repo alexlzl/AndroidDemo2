@@ -8,6 +8,7 @@ import android.view.View;
 
 
 public class RecyclerViewItemTouchListener implements RecyclerView.OnItemTouchListener {
+    //将OnItemTouchListener的TOUCH事件传递给GestureDetectorCompat处理
     private GestureDetectorCompat mGestureDetector;
     private RecyclerView recyclerView;
 
@@ -62,9 +63,17 @@ public class RecyclerViewItemTouchListener implements RecyclerView.OnItemTouchLi
         }
     }
 
+    /**
+     * item长按事件
+     * @param vh
+     */
     public void onLongClick(RecyclerView.ViewHolder vh) {
     }
 
+    /**
+     * item点击事件
+     * @param vh
+     */
     public void onItemClick(RecyclerView.ViewHolder vh) {
     }
 }
