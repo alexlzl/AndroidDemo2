@@ -26,14 +26,7 @@ import java.util.List;
 
 public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.OnDragListener {
 
-    private List<ItemEntity> results = new ArrayList<ItemEntity>();
-    private ArrayList<ItemEntity> items;
-    private TextView deletestate;
-    private TextView dragstate;
-    private TextView outbunds;
-    private TextView mposition;
-    private TextView movied;
-    private TextView locationd;
+    private List<ItemEntity> results = new ArrayList();
     private TextView deleteview;
     private boolean isOver;// 标记是否松开后产生的拖拽
     public WindowViewManager windowViewManager;
@@ -70,12 +63,6 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         deleteview = (TextView) view.findViewById(R.id.bottom_tv);
-        movied = (TextView) view.findViewById(R.id.movie_d);
-        locationd = (TextView) view.findViewById(R.id.location_d);
-        mposition = (TextView) view.findViewById(R.id.position);
-        dragstate = (TextView) view.findViewById(R.id.dragstate);
-        deletestate = (TextView) view.findViewById(R.id.deletestate);
-        outbunds = (TextView) view.findViewById(R.id.outbunds);
         RecyclerAdapter adapter = new RecyclerAdapter(R.layout.item_layout, results);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
@@ -138,6 +125,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
 
     /**
      * 监听是否到达可删除区域
+     *
      * @param isCanDelete
      */
     @Override
@@ -152,13 +140,14 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
 
     /**
      * 是否开始拖拽
+     *
      * @param isStartDrag
      */
     @Override
     public void isStartDrag(boolean isStartDrag) {
-        if(isStartDrag){
+        if (isStartDrag) {
             deleteview.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             deleteview.setVisibility(View.GONE);
         }
     }
@@ -167,7 +156,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
      * 拖拽是否超出RecyclerView边界
      */
     @Override
-    public void isBeyondBounds(boolean isBeyond, int l, int t, int r, int b,View itemView) {
+    public void isBeyondBounds(boolean isBeyond, int l, int t, int r, int b, View itemView) {
         if (isBeyond) {
             /**
              * 拖拽超出边界，显示遮罩层
@@ -194,18 +183,16 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     }
 
 
-
     /**
      * 根据拖拽ITEM位置更新Window层视图位置
      */
-    public void showWindowView(int x, int y,ImageView imageView) {
-        windowViewManager.showOverViewLayout(x, y - CommonUtil.getStatusBarHeight(getActivity()),imageView.getDrawable());
+    public void showWindowView(int x, int y, ImageView imageView) {
+        windowViewManager.showOverViewLayout(x, y - CommonUtil.getStatusBarHeight(getActivity()), imageView.getDrawable());
     }
 
-    public void hideWindowView(){
+    public void hideWindowView() {
         windowViewManager.hideOverViewLayout();
     }
-
 
 
 }

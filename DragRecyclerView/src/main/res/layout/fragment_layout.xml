@@ -14,47 +14,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
-        <LinearLayout
-            android:id="@+id/ll_parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_parent"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
 
-            <TextView
-                android:id="@+id/deletestate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="test1" />
+            <!--<TextView-->
+                <!--android:id="@+id/deletestate"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="test1" />-->
 
-            <TextView
-                android:id="@+id/dragstate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="test2" />
+            <!--<TextView-->
+                <!--android:id="@+id/dragstate"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="test2" />-->
 
-            <TextView
-                android:id="@+id/outbunds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="test3" />
+            <!--<TextView-->
+                <!--android:id="@+id/outbunds"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="test3" />-->
 
-            <TextView
-                android:id="@+id/position"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="test4" />
-            <TextView
-                android:id="@+id/movie_d"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="test5" />
+            <!--<TextView-->
+                <!--android:id="@+id/position"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="test4" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/movie_d"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="test5" />-->
 
-            <TextView
-                android:id="@+id/location_d"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="test6" />
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/location_d"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="test6" />-->
+        <!--</LinearLayout>-->
     </LinearLayout>
 
     <TextView
