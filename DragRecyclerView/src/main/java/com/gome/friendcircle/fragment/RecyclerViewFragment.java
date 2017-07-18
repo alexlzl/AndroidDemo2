@@ -27,7 +27,7 @@ import java.util.List;
 
 public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.OnDragListener {
 
-    private List<ItemEntity> results = new ArrayList();
+    private List<ItemEntity> dataList = new ArrayList();
     private ImageView deleteview;
     private boolean isOver;// 标记是否松开后产生的拖拽
     public WindowViewManager windowViewManager;
@@ -42,16 +42,16 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     }
 
     private void initData() {
-        results.add(new ItemEntity(0, R.drawable.one));
-        results.add(new ItemEntity(1, R.drawable.two));
-        results.add(new ItemEntity(2, R.drawable.three));
-        results.add(new ItemEntity(3, R.drawable.four));
-        results.add(new ItemEntity(4, R.drawable.five));
-        results.add(new ItemEntity(5, R.drawable.six));
-        results.add(new ItemEntity(6, R.drawable.seven));
-        results.add(new ItemEntity(7, R.drawable.eight));
-        results.add(new ItemEntity(8, R.drawable.nine));
-        results.add(new ItemEntity(results.size(), R.drawable.add));
+        dataList.add(new ItemEntity(0, R.drawable.one));
+        dataList.add(new ItemEntity(1, R.drawable.two));
+        dataList.add(new ItemEntity(2, R.drawable.three));
+        dataList.add(new ItemEntity(3, R.drawable.four));
+        dataList.add(new ItemEntity(4, R.drawable.five));
+        dataList.add(new ItemEntity(5, R.drawable.six));
+        dataList.add(new ItemEntity(6, R.drawable.seven));
+        dataList.add(new ItemEntity(7, R.drawable.eight));
+        dataList.add(new ItemEntity(8, R.drawable.nine));
+        dataList.add(new ItemEntity(dataList.size(), R.drawable.add));
     }
 
     @Nullable
@@ -64,12 +64,12 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         deleteview = (ImageView) view.findViewById(R.id.bottom_tv);
-        RecyclerAdapter adapter = new RecyclerAdapter(R.layout.item_layout, results);
+        RecyclerAdapter adapter = new RecyclerAdapter(R.layout.item_layout, dataList);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        itemTouchHelper = new android.support.v7.widget.helper.ItemTouchHelper(new ItemTouchHelper(adapter, results, (ViewGroup) view).setOnDragListener(this));
+        itemTouchHelper = new android.support.v7.widget.helper.ItemTouchHelper(new ItemTouchHelper(adapter, dataList, (ViewGroup) view).setOnDragListener(this));
         itemTouchHelper.attachToRecyclerView(recyclerView);
         initWidowView();
         setRecyclerViewItemListener();
@@ -94,7 +94,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         recyclerView.addOnItemTouchListener(new RecyclerViewItemTouchListener(recyclerView) {
             @Override
             public void onLongClick(RecyclerView.ViewHolder vh) {
-                if (vh.getLayoutPosition() != results.size() - 1) {
+                if (vh.getLayoutPosition() != dataList.size() - 1) {
                     /**
                      * 非最后一个位置的视图相应拖拽事件
                      */
@@ -105,7 +105,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
 
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
-                ItemEntity item = results.get(vh.getLayoutPosition());
+                ItemEntity item = dataList.get(vh.getLayoutPosition());
                 Toast.makeText(getActivity(), item.getId() + " ", Toast.LENGTH_SHORT).show();
             }
         });
