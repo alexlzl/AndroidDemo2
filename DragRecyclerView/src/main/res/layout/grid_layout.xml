@@ -58,18 +58,18 @@
     </LinearLayout>
 
     <TextView
+        android:layout_centerHorizontal="true"
         android:id="@+id/bottom_tv"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_width="20dp"
+        android:layout_height="25dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        android:gravity="center_horizontal"
-        android:text="删除状态" />
+        android:background="@drawable/delete_no"
+        />
     <RelativeLayout
         android:alpha="0.5"
         android:visibility="visible"
         android:id="@+id/over_view"
-        android:background="@color/colorAccent"
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></RelativeLayout>
 </RelativeLayout>

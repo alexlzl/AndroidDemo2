@@ -41,28 +41,18 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
     RelativeLayout overview;
     TextView movied;
     TextView locationd;
+    TextView  deleteview;
     boolean isover;// 标记是否松开拖拽
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ////////////////////////////////////////////////////////
         /////////初始化数据，如果缓存中有就使用缓存中的
         items = (ArrayList<Item>) ACache.get(getActivity()).getAsObject("items");
         if (items != null)
             results.addAll(items);
         else {
-//            for (int i = 0; i < 3; i++) {
-//                results.add(new Item(i * 8 + 0, "收款", R.drawable.takeout_ic_category_brand));
-//                results.add(new Item(i * 8 + 1, "转账", R.drawable.takeout_ic_category_flower));
-//                results.add(new Item(i * 8 + 2, "余额宝", R.drawable.takeout_ic_category_fruit));
-//                results.add(new Item(i * 8 + 3, "手机充值", R.drawable.takeout_ic_category_medicine));
-//                results.add(new Item(i * 8 + 4, "医疗", R.drawable.takeout_ic_category_motorcycle));
-//                results.add(new Item(i * 8 + 5, "彩票", R.drawable.takeout_ic_category_public));
-//                results.add(new Item(i * 8 + 6, "电影", R.drawable.takeout_ic_category_store));
-//                results.add(new Item(i * 8 + 7, "游戏", R.drawable.takeout_ic_category_sweet));
-//            }
             results.add(new Item(0, "收款", R.drawable.j));
             results.add(new Item(1, "转账", R.drawable.j));
             results.add(new Item(2, "余额宝", R.drawable.j));
@@ -74,7 +64,6 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
         }
         results.remove(results.size() - 1);
         results.add(new Item(results.size(), "更多", R.drawable.takeout_ic_more));
-        ////////////////////////////////////////////////////////
     }
 
     @Nullable
@@ -90,7 +79,7 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        deleteview= (TextView) view.findViewById(R.id.bottom_tv);
         movied= (TextView) view.findViewById(R.id.movie_d);
         locationd= (TextView) view.findViewById(R.id.location_d);
         overview = (RelativeLayout) view.findViewById(R.id.over_view);
@@ -147,8 +136,10 @@ public class MyGridFragment extends Fragment implements MyItemTouchCallback.OnDr
     public void deleteState(boolean delete, float dy, int itemh) {
         if (delete) {
             deletestate.setText("到达删除区域" + dy + "item高度" + itemh);
+            deleteview.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.delete_yes));
         } else {
             deletestate.setText("未到达删除区域" + dy + "item高度" + itemh);
+            deleteview.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.delete_no));
         }
 
     }
