@@ -152,17 +152,15 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     }
 
     /**
-     * 拖拽是否超出RecyclerView边界
+     * 显示遮罩层视图
      */
     @Override
-    public void showOverView(int l, int t, int r, int b, View itemView) {
+    public void showOverView(int l, int t, View itemView) {
         /**
          * 拖拽超出边界，显示遮罩层
          */
-        Log.e("tag", "超出边界");
         showWindowView(l, t, (ImageView) itemView.findViewById(R.id.item_img));
         itemView.setVisibility(View.INVISIBLE);
-
         if (!isOver) {
             /**
              * 非松开拖拽后的回调，显示遮罩视图
@@ -176,6 +174,13 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
             hideWindowView();
         }
     }
+     /**
+       * @ Describe: 是否显示遮罩层
+       *
+       * @ Author: LZL
+       *
+       * @ Time: 2017/7/19 16:59
+       */
 
     @Override
     public void isShowWindow(boolean isShow) {

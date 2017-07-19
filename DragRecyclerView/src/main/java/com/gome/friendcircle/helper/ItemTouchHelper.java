@@ -62,85 +62,6 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
     }
 
     /**
-     * 当用户从item原来的位置拖动可以拖动的item到新位置的过程中调用
-     */
-    @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-        int fromPosition = viewHolder.getAdapterPosition();//得到拖动ViewHolder的position
-        int toPosition = target.getAdapterPosition();//得到目标ViewHolder的position
-        itemMoveCallbackAdapter.onMove(fromPosition, toPosition);//回调adapter进行数据刷新
-        Log.e("tag", "onMove");
-        return true;
-    }
-
-    @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        Log.e("tag", "onSwiped");
-    }
-
-    /**
-     * RecyclerView调用onDraw时调用，如果想自定义item对用户互动的响应,可以重写该方法
-     */
-    @Override
-    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        Log.e("tag", "onChildDraw==");
-        if (null == onDragListener) {
-            return;
-        }
-        if (isLoosenOnDelete) {
-            /**
-             * 如果在删除区域并且松开手，刷新完数据，后面的onChildDraw事件就不处理
-             */
-            return;
-        }
-        /**
-         * 获取ITEM坐标
-         */
-        int[] itemViewPosition = new int[2];
-        viewHolder.itemView.getLocationOnScreen(itemViewPosition);
-        onDragListener.showOverView(itemViewPosition[0], itemViewPosition[1], viewHolder.itemView.getWidth(), viewHolder.itemView.getHeight(), viewHolder.itemView);
-
-        /**
-         * 判断是否拖拽到删除区域=======2
-         */
-        if (isMoveToDelete(viewHolder.itemView, dY)) {
-            /**
-             * 到达删除区域====
-             */
-            Log.e("tag", "onChildDraw==到达删除区域");
-            onDragListener.isCanDelete(true);
-            if (isDragOver) {
-                if (viewHolder.getAdapterPosition() == -1)
-                    return;
-                /**
-                 * 在删除处放手，则删除item
-                 */
-                viewHolder.itemView.setVisibility(View.INVISIBLE);//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
-                mDataList.remove(viewHolder.getAdapterPosition());
-                /**
-                 * 隐藏窗口层
-                 */
-                onDragListener.isShowWindow(false);
-                Log.e("tag", "删除数据位置==" + viewHolder.getAdapterPosition());
-                Log.e("tag", "剩余数据==" + mDataList.size() + "===" + mDataList.toString());
-                ((RecyclerAdapter) itemMoveCallbackAdapter).notifyItemRemoved(viewHolder.getAdapterPosition());
-                isLoosenOnDelete = true;
-                initData();
-                return;
-            }
-        } else {
-            /**
-             * 未到达删除区域====
-             */
-            Log.e("tag", "onChildDraw==未到达删除区域");
-            onDragListener.isCanDelete(false);
-        }
-
-
-    }
-
-    /**
      * 当长按选中item的时候（拖拽开始的时候）调用
      */
     @Override
@@ -165,6 +86,93 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         super.onSelectedChanged(viewHolder, actionState);
     }
 
+    /**
+     * 当用户从item原来的位置拖动可以拖动的item到新位置的过程中调用
+     */
+    @Override
+    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+        int fromPosition = viewHolder.getAdapterPosition();//得到拖动ViewHolder的position
+        int toPosition = target.getAdapterPosition();//得到目标ViewHolder的position
+        itemMoveCallbackAdapter.onMove(fromPosition, toPosition);//回调adapter进行数据刷新
+        Log.e("tag", "onMove");
+        return true;
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+    }
+
+
+    /**
+     * RecyclerView调用onDraw时调用，如果想自定义item对用户互动的响应,可以重写该方法
+     */
+    @Override
+    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+//        Log.e("tag", "onChildDraw==");
+        if (null == onDragListener) {
+            return;
+        }
+        if (isLoosenOnDelete) {
+            /**
+             * 如果在删除区域并且松开手，刷新完数据，后面的onChildDraw事件就不处理
+             */
+            return;
+        }
+        /**
+         *  一旦拖拽产生位移，获取ITEM坐标，传递给遮罩层显示遮罩层中的视图=========1
+         */
+        int[] itemViewPosition = new int[2];
+        viewHolder.itemView.getLocationOnScreen(itemViewPosition);
+        onDragListener.showOverView(itemViewPosition[0], itemViewPosition[1], viewHolder.itemView);
+        /**
+         * 判断是否拖拽到删除区域===========2
+         */
+        if (isMoveToDelete(viewHolder.itemView, dY)) {
+            /**
+             * 到达删除区域====
+             */
+            Log.e("tag", "onChildDraw==到达删除区域");
+            onDragListener.isCanDelete(true);
+            if (isDragOver) {
+                /**
+                 * 在删除区域松开手，删除ITEM数据，刷新UI
+                 */
+                if (viewHolder.getAdapterPosition() == -1)
+                    return;
+                viewHolder.itemView.setVisibility(View.INVISIBLE);//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
+                mDataList.remove(viewHolder.getAdapterPosition());
+                /**
+                 * 隐藏窗口层
+                 */
+                onDragListener.isShowWindow(false);
+                Log.e("tag", "删除数据位置==" + viewHolder.getAdapterPosition());
+                Log.e("tag", "剩余数据==" + mDataList.size() + "===" + mDataList.toString());
+                ((RecyclerAdapter) itemMoveCallbackAdapter).notifyItemRemoved(viewHolder.getAdapterPosition());
+                isLoosenOnDelete = true;
+                initData();
+                return;
+            }
+        } else {
+            /**
+             * 未到达删除区域====
+             */
+//            Log.e("tag", "onChildDraw==未到达删除区域");
+            onDragListener.isCanDelete(false);
+        }
+
+
+    }
+
+    /**
+     * 手指放开回调
+     */
+    @Override
+    public long getAnimationDuration(RecyclerView recyclerView, int animationType, float animateDx, float animateDy) {
+        Log.e("tag", "手指松开====isDragOver = true");
+        isDragOver = true;
+        return super.getAnimationDuration(recyclerView, animationType, animateDx, animateDy);
+    }
 
     /**
      * @ Describe: 判断是否已经到达底部删除区域
@@ -173,6 +181,9 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
      */
 
     public boolean isMoveToDelete(View itemView, float dy) {
+        /**
+         * 向上拖拽
+         */
         if (dy < 0)
             return false;
         /**
@@ -188,26 +199,19 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         ImageView imageView = (ImageView) layoutRoot.findViewById(R.id.bottom_tv);
         imageView.getLocationOnScreen(deleteView);
         int deleteViewY = deleteView[1];
-        int viewDistance = deleteViewY - itemViewY;//ITEM到底部删除视图的距离
-        Log.e("tag", "底部删除视图Y坐标==" + deleteViewY + "ITEM Y坐标==" + itemViewY);
+        int viewDistance = deleteViewY - itemViewY-itemView.getHeight();//ITEM到底部删除视图的距离
+        Log.e("tag", "底部删除视图Y坐标==" + deleteViewY + "==ITEM=Y坐标==" + itemViewY);
         Log.e("tag", "视图拖动距离==" + dy + "距离删除区域距离==" + viewDistance);
-        if (dy >= viewDistance) {
+        if (viewDistance <= 50) {
+            /**
+             * 在ITEM底部距离删除视图小于50像素时，达到删除条件
+             */
             return true;
         }
         return false;
 
     }
 
-
-    /**
-     * 手指放开回调
-     */
-    @Override
-    public long getAnimationDuration(RecyclerView recyclerView, int animationType, float animateDx, float animateDy) {
-        Log.e("tag", "手指松开====isDragOver = true");
-        isDragOver = true;
-        return super.getAnimationDuration(recyclerView, animationType, animateDx, animateDy);
-    }
 
     /**
      * 当用户与item的交互结束并且item也完成了动画时调用
@@ -227,7 +231,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
     }
 
     /**
-     * 重置
+     * 状态重置
      */
     private void initData() {
         if (onDragListener != null) {
@@ -271,7 +275,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         /**
          * 开始显示遮罩层
          */
-        void showOverView(int l, int t, int r, int b, View itemView);
+        void showOverView(int l, int t, View itemView);
 
         /**
          * 是否显示窗口层

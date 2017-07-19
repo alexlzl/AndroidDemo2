@@ -25,7 +25,7 @@ public class WindowViewManager {
     }
 
     public void initOverView(final ImageView childView) {
-        Log.e("tag", "初始化窗口");
+//        Log.e("tag", "初始化窗口");
         mChildView = childView;
         int w = 360;// 大小
         wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
@@ -42,7 +42,7 @@ public class WindowViewManager {
     }
 
     public void showOverViewLayout(int x, int y, Drawable drawable) {
-        Log.e("tag", "显示窗口");
+//        Log.e("tag", "显示窗口");
         mChildView.setBackgroundDrawable(drawable);
         mChildView.setVisibility(View.VISIBLE);
         params.alpha = 1f;
@@ -54,7 +54,7 @@ public class WindowViewManager {
      * 隐藏悬浮View
      */
     public void hideOverViewLayout() {
-        Log.e("tag", "隐藏窗口");
+//        Log.e("tag", "隐藏窗口");
         if (wm != null && mChildView != null && mChildView.isShown()) {
             params.gravity = Gravity.LEFT | Gravity.TOP;
             mChildView.setVisibility(View.GONE);
