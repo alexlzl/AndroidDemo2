@@ -35,20 +35,22 @@ public class WindowViewManager {
         params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         params.format = PixelFormat.TRANSLUCENT;// 不设置这个弹出框的透明遮罩显示为黑色
-        params.width = w;
-        params.height = w;
+        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.alpha = 0.0f;
         params.gravity = Gravity.LEFT | Gravity.TOP;
         wm.addView(childView, params);
     }
 
-    public void showOverViewLayout(int x, int y, Drawable drawable) {
+    public void showOverViewLayout(int x, int y, Drawable drawable,View itemView) {
 //        Log.e("tag", "显示窗口");
         mChildView.setBackgroundDrawable(drawable);
         mChildView.setVisibility(View.VISIBLE);
         params.alpha = 1f;
         params.x = x;
         params.y = y;
+        params.width=itemView.getWidth();
+        params.height=itemView.getHeight();
         wm.updateViewLayout(mChildView, params);
     }
     /**

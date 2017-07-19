@@ -160,7 +160,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
          * 拖拽超出边界，显示遮罩层
          */
 
-        showWindowView(l, t, (ImageView) itemView.findViewById(R.id.item_img));
+        showWindowView(l, t, (ImageView) itemView.findViewById(R.id.item_img),itemView);
         itemView.setVisibility(View.INVISIBLE);
         if(isOver){
             isOver = false;
@@ -199,8 +199,8 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     /**
      * 根据拖拽ITEM位置更新Window层视图位置
      */
-    public void showWindowView(int x, int y, ImageView imageView) {
-        windowViewManager.showOverViewLayout(x, y - CommonUtil.getStatusBarHeight(getActivity()), imageView.getDrawable());
+    public void showWindowView(int x, int y, ImageView imageView,View itemView) {
+        windowViewManager.showOverViewLayout(x, y - CommonUtil.getStatusBarHeight(getActivity()), imageView.getDrawable(),itemView);
     }
 
     public void hideWindowView() {
