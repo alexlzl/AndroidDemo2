@@ -69,28 +69,8 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         itemTouchHelper = new android.support.v7.widget.helper.ItemTouchHelper(new ItemTouchHelper(adapter, dataList, (ViewGroup) view).setOnDragListener(this));
         itemTouchHelper.attachToRecyclerView(recyclerView);
-//        initWidowView();
-        setRecyclerViewItemListener();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         initWidowView();
-        Log.e("tag", "fragment==onResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.e("tag", "fragment==onPause");
-        removeWidowView();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.e("tag", "fragment==onStop");
+        setRecyclerViewItemListener();
     }
 
     /**
@@ -204,9 +184,9 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
 
     @Override
     public void isShowWindow(boolean isShow) {
-                if(!isShow){
-                  hideWindowView();
-                }
+        if (!isShow) {
+            hideWindowView();
+        }
     }
 
 
@@ -221,7 +201,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         windowViewManager.hideOverViewLayout();
     }
 
-    public void removeWidowView(){
+    public void removeWidowView() {
         windowViewManager.removeWindowView();
     }
 

@@ -120,17 +120,19 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
             Log.e("tag", "onChildDraw==到达删除区域");
             onDragListener.isCanDelete(true);
             if (isDragOver) {
+                if(viewHolder.getAdapterPosition()==-1)
+                    return;
                 /**
                  * 在删除处放手，则删除item
                  */
                 viewHolder.itemView.setVisibility(View.INVISIBLE);//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
+                mDataList.remove(viewHolder.getAdapterPosition());
                 /**
                  * 隐藏窗口层
                  */
                 onDragListener.isShowWindow(false);
-                if(viewHolder.getAdapterPosition()==-1)
-                    return;
-                mDataList.remove(viewHolder.getAdapterPosition());
+                Log.e("tag", "删除数据位置=="+viewHolder.getAdapterPosition());
+                Log.e("tag", "剩余数据=="+mDataList.size()+"==="+mDataList.toString());
                 ((RecyclerAdapter) itemMoveCallbackAdapter).notifyItemRemoved(viewHolder.getAdapterPosition());
                 isLoosenOnDelete=true;
                 initData();
@@ -232,7 +234,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
             onDragListener.onDragFinished(viewHolder.itemView);
         }
         isLoosenOnDelete=false;
-        ((RecyclerAdapter) itemMoveCallbackAdapter).notifyDataSetChanged();
+//        ((RecyclerAdapter) itemMoveCallbackAdapter).notifyDataSetChanged();
     }
 
     /**
