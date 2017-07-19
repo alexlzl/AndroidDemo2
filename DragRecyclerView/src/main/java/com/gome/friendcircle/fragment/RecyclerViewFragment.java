@@ -31,6 +31,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     public WindowViewManager windowViewManager;
     private RecyclerView recyclerView;
     private android.support.v7.widget.helper.ItemTouchHelper itemTouchHelper;
+//    private View currentItemView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,6 +120,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         isOver = true;
         deleteView.setVisibility(View.GONE);
         itemView.setVisibility(View.VISIBLE);
+//        currentItemView.setVisibility(View.VISIBLE);
         hideWindowView();
     }
 
@@ -162,7 +164,8 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
              */
             Log.e("tag", "超出边界");
             showWindowView(l, t, (ImageView) itemView.findViewById(R.id.item_img));
-            itemView.setVisibility(View.GONE);
+//            currentItemView=itemView;
+            itemView.setVisibility(View.INVISIBLE);
 
             if (!isOver) {
                 /**
