@@ -120,10 +120,10 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         Log.e("tag", "完成拖拽");
         isOver = true;
         deleteview.setVisibility(View.GONE);
-        if(null!=itemView){
-            itemView.setVisibility(View.VISIBLE);
-        }
-
+//        if(null!=itemView){
+//            itemView.setVisibility(View.VISIBLE);
+//        }
+        itemView.setVisibility(View.VISIBLE);
 
         hideWindowView();
     }
@@ -166,6 +166,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
             /**
              * 拖拽超出边界，显示遮罩层
              */
+            Log.e("tag", "超出边界");
             showWindowView(l, t, (ImageView) itemView.findViewById(R.id.item_img));
             itemView.setVisibility(View.GONE);
 
@@ -185,6 +186,13 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         } else {
             Log.e("tag", "未超出边界");
         }
+    }
+
+    @Override
+    public void isShowWindow(boolean isShow) {
+                if(!isShow){
+                  hideWindowView();
+                }
     }
 
 

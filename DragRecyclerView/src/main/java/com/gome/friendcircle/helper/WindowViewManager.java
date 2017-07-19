@@ -3,6 +3,7 @@ package com.gome.friendcircle.helper;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -41,7 +42,8 @@ public class WindowViewManager {
     }
 
     public void showOverViewLayout(int x, int y, Drawable drawable) {
-        mChildView.setBackgroundDrawable(drawable);
+        Log.e("tag", "显示窗口");
+//        mChildView.setBackgroundDrawable(drawable);
         mChildView.setVisibility(View.VISIBLE);
         params.alpha = 1f;
         params.x = x;
@@ -52,6 +54,7 @@ public class WindowViewManager {
      * 隐藏悬浮View
      */
     public void hideOverViewLayout() {
+        Log.e("tag", "隐藏窗口");
         if (wm != null && mChildView != null && mChildView.isShown()) {
 //            mChildView.setVisibility(View.GONE);
             params.gravity = Gravity.LEFT | Gravity.TOP;
