@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ((RecyclerViewFragment) fragment).windowViewManager.removeFloatView();
+        ((RecyclerViewFragment) fragment).windowViewManager.removeWindowView();
         Log.e("tag", "onBackPressed");
         super.onBackPressed();
     }
@@ -34,8 +34,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        ((RecyclerViewFragment) fragment).windowViewManager.removeFloatView();
-        Log.e("tag", "onStop");
+//        ((RecyclerViewFragment) fragment).windowViewManager.removeFloatView();
+        Log.e("tag", "activity==onStop");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     @Override

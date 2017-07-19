@@ -64,7 +64,7 @@ public class WindowViewManager {
     /**
      * 将悬浮View从WindowManager中移除，需要与createFloatView()成对出现
      */
-    public void removeFloatView() {
+    public void removeWindowView() {
         if (wm != null && mChildView != null) {
             wm.removeViewImmediate(mChildView);
             mChildView = null;
