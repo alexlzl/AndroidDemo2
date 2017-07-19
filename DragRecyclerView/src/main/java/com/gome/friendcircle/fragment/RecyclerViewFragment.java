@@ -31,7 +31,6 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     public WindowViewManager windowViewManager;
     private RecyclerView recyclerView;
     private android.support.v7.widget.helper.ItemTouchHelper itemTouchHelper;
-//    private View currentItemView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,7 +119,6 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         isOver = true;
         deleteView.setVisibility(View.GONE);
         itemView.setVisibility(View.VISIBLE);
-//        currentItemView.setVisibility(View.VISIBLE);
         hideWindowView();
     }
 
@@ -157,31 +155,25 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
      * 拖拽是否超出RecyclerView边界
      */
     @Override
-    public void isBeyondBounds(boolean isBeyond, int l, int t, int r, int b, View itemView) {
-        if (isBeyond) {
+    public void showOverView(int l, int t, int r, int b, View itemView) {
+        /**
+         * 拖拽超出边界，显示遮罩层
+         */
+        Log.e("tag", "超出边界");
+        showWindowView(l, t, (ImageView) itemView.findViewById(R.id.item_img));
+        itemView.setVisibility(View.INVISIBLE);
+
+        if (!isOver) {
             /**
-             * 拖拽超出边界，显示遮罩层
+             * 非松开拖拽后的回调，显示遮罩视图
              */
-            Log.e("tag", "超出边界");
-            showWindowView(l, t, (ImageView) itemView.findViewById(R.id.item_img));
-//            currentItemView=itemView;
-            itemView.setVisibility(View.INVISIBLE);
-
-            if (!isOver) {
-                /**
-                 * 非松开拖拽后的回调，显示遮罩视图
-                 */
-                isOver = false;
-            } else {
-                /**
-                 * 处理松开拖拽后的回调，isOver置为false，下次拖拽仍然可以显示遮罩视图
-                 */
-                isOver = false;
-                hideWindowView();
-            }
-
+            isOver = false;
         } else {
-            Log.e("tag", "未超出边界");
+            /**
+             * 处理松开拖拽后的回调，isOver置为false，下次拖拽仍然可以显示遮罩视图
+             */
+            isOver = false;
+            hideWindowView();
         }
     }
 
@@ -202,10 +194,6 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
 
     public void hideWindowView() {
         windowViewManager.hideOverViewLayout();
-    }
-
-    public void removeWidowView() {
-        windowViewManager.removeWindowView();
     }
 
 

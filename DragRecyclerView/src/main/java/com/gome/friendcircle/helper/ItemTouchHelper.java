@@ -8,9 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.gome.app.R;
 import com.gome.friendcircle.adapter.RecyclerAdapter;
@@ -26,7 +24,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
     private List<ItemEntity> mDataList;
     private ViewGroup layoutRoot;
     private Drawable background = null;
-    private int bkcolor = -1;
+    private int bgColor = -1;
     private OnDragListener onDragListener;
     private boolean isLoosenOnDelete;//当在删除区域，松开手后，数据删除，标记onChildDraw是否需要继续刷新位置(防止遮罩层view出现位置回滚)
 
@@ -90,26 +88,18 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         if (null == onDragListener) {
             return;
         }
-        if(isLoosenOnDelete){
+        if (isLoosenOnDelete) {
             /**
              * 如果在删除区域并且松开手，刷新完数据，后面的onChildDraw事件就不处理
              */
-          return;
+            return;
         }
         /**
          * 获取ITEM坐标
          */
         int[] itemViewPosition = new int[2];
         viewHolder.itemView.getLocationOnScreen(itemViewPosition);
-        /**
-         * 判断是否item拖拽出下边界======1
-         */
-//        if (isBeyondRecyclerView(dY, viewHolder.itemView)) {
-//            onDragListener.isBeyondBounds(true, itemViewPosition[0], itemViewPosition[1], viewHolder.itemView.getWidth(), viewHolder.itemView.getHeight(), viewHolder.itemView);
-//        } else {
-//            onDragListener.isBeyondBounds(false, itemViewPosition[0], itemViewPosition[1], viewHolder.itemView.getWidth(), viewHolder.itemView.getHeight(), viewHolder.itemView);
-//        }
-        onDragListener.isBeyondBounds(true, itemViewPosition[0], itemViewPosition[1], viewHolder.itemView.getWidth(), viewHolder.itemView.getHeight(), viewHolder.itemView);
+        onDragListener.showOverView(itemViewPosition[0], itemViewPosition[1], viewHolder.itemView.getWidth(), viewHolder.itemView.getHeight(), viewHolder.itemView);
 
         /**
          * 判断是否拖拽到删除区域=======2
@@ -121,7 +111,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
             Log.e("tag", "onChildDraw==到达删除区域");
             onDragListener.isCanDelete(true);
             if (isDragOver) {
-                if(viewHolder.getAdapterPosition()==-1)
+                if (viewHolder.getAdapterPosition() == -1)
                     return;
                 /**
                  * 在删除处放手，则删除item
@@ -132,10 +122,10 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
                  * 隐藏窗口层
                  */
                 onDragListener.isShowWindow(false);
-                Log.e("tag", "删除数据位置=="+viewHolder.getAdapterPosition());
-                Log.e("tag", "剩余数据=="+mDataList.size()+"==="+mDataList.toString());
+                Log.e("tag", "删除数据位置==" + viewHolder.getAdapterPosition());
+                Log.e("tag", "剩余数据==" + mDataList.size() + "===" + mDataList.toString());
                 ((RecyclerAdapter) itemMoveCallbackAdapter).notifyItemRemoved(viewHolder.getAdapterPosition());
-                isLoosenOnDelete=true;
+                isLoosenOnDelete = true;
                 initData();
                 return;
             }
@@ -144,9 +134,6 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
              * 未到达删除区域====
              */
             Log.e("tag", "onChildDraw==未到达删除区域");
-//            if (View.GONE== viewHolder.itemView.getVisibility()) {//如果viewHolder不可见，则表示用户放手，重置删除区域状态
-//                onDragListener.isStartDrag(false);
-//            }
             onDragListener.isCanDelete(false);
         }
 
@@ -161,10 +148,10 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
 
         if (actionState != android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE) {
             Log.e("tag", "onSelectedChanged===ACTION_STATE_IDLE");
-            if (background == null && bkcolor == -1) {
+            if (background == null && bgColor == -1) {
                 Drawable drawable = viewHolder.itemView.getBackground();
                 if (drawable == null) {
-                    bkcolor = 0;
+                    bgColor = 0;
                 } else {
                     background = drawable;
                 }
@@ -178,64 +165,39 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         super.onSelectedChanged(viewHolder, actionState);
     }
 
-    /**
-     * 判断是否拖拽到底部删除区域
-     */
-//    public boolean isMoveToBottom(View itemView, float dy) {
-//        ImageView bottomView = (ImageView) layoutRoot.findViewById(R.id.bottom_tv);
-//        //底部到父视图距离
-//        int height = bottomView.getTop();
-//        //item底部到recyclerView顶部距离
-//        int itemTop = itemView.getBottom();
-//        int distance = height - itemTop - 30;
-//        Log.e("tag", "视图拖动距离==" + dy + "距离删除区域距离==" + distance);
-//        if (dy >= distance) {
-//            return true;
-//        }
-//        return false;
-//    }
 
-    public boolean isMoveToDelete(View itemView ,float dy){
-        if(dy<0)
+    /**
+     * @ Describe: 判断是否已经到达底部删除区域
+     * @ Author: LZL
+     * @ Time: 2017/7/19 16:45
+     */
+
+    public boolean isMoveToDelete(View itemView, float dy) {
+        if (dy < 0)
             return false;
         /**
          * 获取ITEM在屏幕中的坐标
          */
-        int[]  itemLocation=new int[2];
+        int[] itemLocation = new int[2];
         itemView.getLocationOnScreen(itemLocation);
-        int  itemViewY=itemLocation[1];
+        int itemViewY = itemLocation[1];
         /**
          * 获取删除视图在屏幕中的坐标
          */
-        int[]  deleteView=new int[2];
+        int[] deleteView = new int[2];
         ImageView imageView = (ImageView) layoutRoot.findViewById(R.id.bottom_tv);
         imageView.getLocationOnScreen(deleteView);
-        int deleteViewY=deleteView[1];
-        int  viewDistance=deleteViewY-itemViewY;//ITEM到底部删除视图的距离
+        int deleteViewY = deleteView[1];
+        int viewDistance = deleteViewY - itemViewY;//ITEM到底部删除视图的距离
         Log.e("tag", "底部删除视图Y坐标==" + deleteViewY + "ITEM Y坐标==" + itemViewY);
         Log.e("tag", "视图拖动距离==" + dy + "距离删除区域距离==" + viewDistance);
-        if(dy>=viewDistance){
-            return  true;
-        }
-        return  false;
-
-    }
-
-    /**
-     * 判断ITEM是否移动超出RecyclerView界限
-     */
-    public boolean isBeyondRecyclerView(float dy, View itemView) {
-        //recyclerView高度
-        int recyclerViewHeight = layoutRoot.findViewById(R.id.recycler).getHeight();
-        //itemView底部到父视图顶部高度
-        int itemBottomToTop = itemView.getBottom();
-        int dis = recyclerViewHeight - itemBottomToTop - 5;
-        if (dy >= dis) {
+        if (dy >= viewDistance) {
             return true;
         }
         return false;
 
     }
+
 
     /**
      * 手指放开回调
@@ -256,11 +218,11 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         Log.e("tag", "交互完成clearView");
         viewHolder.itemView.setAlpha(1.0f);
         if (background != null) viewHolder.itemView.setBackgroundDrawable(background);
-        if (bkcolor != -1) viewHolder.itemView.setBackgroundColor(bkcolor);
+        if (bgColor != -1) viewHolder.itemView.setBackgroundColor(bgColor);
         if (onDragListener != null) {
             onDragListener.onDragFinished(viewHolder.itemView);
         }
-        isLoosenOnDelete=false;
+        isLoosenOnDelete = false;
         ((RecyclerAdapter) itemMoveCallbackAdapter).notifyDataSetChanged();
     }
 
@@ -271,7 +233,6 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         if (onDragListener != null) {
             onDragListener.isCanDelete(false);
             onDragListener.isStartDrag(false);
-//            onDragListener.onDragFinished(null);
         }
         isDragOver = false;
     }
@@ -308,9 +269,9 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         void isStartDrag(boolean start);
 
         /**
-         * 是否拖拽超出RecyclerView边界
+         * 开始显示遮罩层
          */
-        void isBeyondBounds(boolean isBeyond, int l, int t, int r, int b, View itemView);
+        void showOverView(int l, int t, int r, int b, View itemView);
 
         /**
          * 是否显示窗口层
