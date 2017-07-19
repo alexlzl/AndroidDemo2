@@ -16,6 +16,13 @@ import com.gome.friendcircle.entity.ItemEntity;
 
 import java.util.List;
 
+ /**
+   * @ Describe: 拖拽事件控制类
+   *
+   * @ Author: LZL
+   *
+   * @ Time: 2017/7/19 18:05
+   */
 
 public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchHelper.Callback {
 
@@ -173,7 +180,22 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         isDragOver = true;
         return super.getAnimationDuration(recyclerView, animationType, animateDx, animateDy);
     }
-
+    /**
+     * 当用户与item的交互结束并且item也完成了动画时调用
+     */
+    @Override
+    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        super.clearView(recyclerView, viewHolder);
+        Log.e("tag", "交互完成clearView");
+        viewHolder.itemView.setAlpha(1.0f);
+        if (background != null) viewHolder.itemView.setBackgroundDrawable(background);
+        if (bgColor != -1) viewHolder.itemView.setBackgroundColor(bgColor);
+        if (onDragListener != null) {
+            onDragListener.onDragFinished(viewHolder.itemView);
+        }
+        isLoosenOnDelete = false;
+        ((RecyclerAdapter) itemMoveCallbackAdapter).notifyDataSetChanged();
+    }
     /**
      * @ Describe: 判断是否已经到达底部删除区域
      * @ Author: LZL
@@ -202,7 +224,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         int viewDistance = deleteViewY - itemViewY-itemView.getHeight();//ITEM到底部删除视图的距离
         Log.e("tag", "底部删除视图Y坐标==" + deleteViewY + "==ITEM=Y坐标==" + itemViewY);
         Log.e("tag", "视图拖动距离==" + dy + "距离删除区域距离==" + viewDistance);
-        if (viewDistance <= 50) {
+        if (viewDistance <= 20) {
             /**
              * 在ITEM底部距离删除视图小于50像素时，达到删除条件
              */
@@ -213,22 +235,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
     }
 
 
-    /**
-     * 当用户与item的交互结束并且item也完成了动画时调用
-     */
-    @Override
-    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        super.clearView(recyclerView, viewHolder);
-        Log.e("tag", "交互完成clearView");
-        viewHolder.itemView.setAlpha(1.0f);
-        if (background != null) viewHolder.itemView.setBackgroundDrawable(background);
-        if (bgColor != -1) viewHolder.itemView.setBackgroundColor(bgColor);
-        if (onDragListener != null) {
-            onDragListener.onDragFinished(viewHolder.itemView);
-        }
-        isLoosenOnDelete = false;
-        ((RecyclerAdapter) itemMoveCallbackAdapter).notifyDataSetChanged();
-    }
+
 
     /**
      * 状态重置

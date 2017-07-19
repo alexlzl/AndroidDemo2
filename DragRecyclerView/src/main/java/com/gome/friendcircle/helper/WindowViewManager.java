@@ -30,7 +30,8 @@ public class WindowViewManager {
         int w = 360;// 大小
         wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
-        params.type = WindowManager.LayoutParams.TYPE_BASE_APPLICATION;// 所有程序窗口的“基地”窗口，其他应用程序窗口都显示在它上面。
+//        params.type = WindowManager.LayoutParams.TYPE_BASE_APPLICATION;// 所有程序窗口的“基地”窗口，其他应用程序窗口都显示在它上面。
+        params.type = WindowManager.LayoutParams.TYPE_APPLICATION  ;
         params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         params.format = PixelFormat.TRANSLUCENT;// 不设置这个弹出框的透明遮罩显示为黑色

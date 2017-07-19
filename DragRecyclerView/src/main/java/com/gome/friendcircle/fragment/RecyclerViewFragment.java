@@ -159,20 +159,26 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         /**
          * 拖拽超出边界，显示遮罩层
          */
+
         showWindowView(l, t, (ImageView) itemView.findViewById(R.id.item_img));
         itemView.setVisibility(View.INVISIBLE);
-        if (!isOver) {
-            /**
-             * 非松开拖拽后的回调，显示遮罩视图
-             */
-            isOver = false;
-        } else {
-            /**
-             * 处理松开拖拽后的回调，isOver置为false，下次拖拽仍然可以显示遮罩视图
-             */
+        if(isOver){
             isOver = false;
             hideWindowView();
         }
+
+//        if (!isOver) {
+//            /**
+//             * 非松开拖拽后的回调，显示遮罩视图
+//             */
+//            isOver = false;
+//        } else {
+//            /**
+//             * 处理松开拖拽后的回调，isOver置为false，下次拖拽仍然可以显示遮罩视图
+//             */
+//            isOver = false;
+////            hideWindowView();
+//        }
     }
      /**
        * @ Describe: 是否显示遮罩层
