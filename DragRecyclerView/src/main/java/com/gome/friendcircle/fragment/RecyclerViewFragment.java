@@ -9,9 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gome.app.R;
@@ -28,7 +26,7 @@ import java.util.List;
 public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.OnDragListener {
 
     private List<ItemEntity> dataList = new ArrayList();
-    private ImageView deleteview;
+    private ImageView deleteView;
     private boolean isOver;// 标记是否松开后产生的拖拽
     public WindowViewManager windowViewManager;
     private RecyclerView recyclerView;
@@ -63,7 +61,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        deleteview = (ImageView) view.findViewById(R.id.bottom_tv);
+        deleteView = (ImageView) view.findViewById(R.id.bottom_tv);
         RecyclerAdapter adapter = new RecyclerAdapter(R.layout.item_layout, dataList);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
@@ -119,7 +117,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         //存入缓存
         Log.e("tag", "完成拖拽");
         isOver = true;
-        deleteview.setVisibility(View.GONE);
+        deleteView.setVisibility(View.GONE);
         itemView.setVisibility(View.VISIBLE);
         hideWindowView();
     }
@@ -132,9 +130,9 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     @Override
     public void isCanDelete(boolean isCanDelete) {
         if (isCanDelete) {
-            deleteview.setImageResource(R.drawable.delete_yes);
+            deleteView.setImageResource(R.drawable.delete_yes);
         } else {
-            deleteview.setImageResource(R.drawable.delete_no);
+            deleteView.setImageResource(R.drawable.delete_no);
         }
 
     }
@@ -147,9 +145,9 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     @Override
     public void isStartDrag(boolean isStartDrag) {
         if (isStartDrag) {
-            deleteview.setVisibility(View.VISIBLE);
+            deleteView.setVisibility(View.VISIBLE);
         } else {
-            deleteview.setVisibility(View.GONE);
+            deleteView.setVisibility(View.GONE);
         }
     }
 

@@ -3,6 +3,7 @@ package com.gome.friendcircle.activity;
 import android.os.Bundle;
 import android.support.v4.app.*;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.gome.app.R;
@@ -26,13 +27,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         ((RecyclerViewFragment) fragment).windowViewManager.removeFloatView();
+        Log.e("tag", "onBackPressed");
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ((RecyclerViewFragment) fragment).windowViewManager.removeFloatView();
+        Log.e("tag", "onStop");
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+
         if(hasFocus){
+            Log.e("tag", "onWindowFocusChanged");
             ((RecyclerViewFragment) fragment).hideWindowView();
         }
     }
