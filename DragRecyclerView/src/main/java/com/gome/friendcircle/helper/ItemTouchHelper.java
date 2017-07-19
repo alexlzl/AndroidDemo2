@@ -228,7 +228,6 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         viewHolder.itemView.setAlpha(1.0f);
         if (background != null) viewHolder.itemView.setBackgroundDrawable(background);
         if (bkcolor != -1) viewHolder.itemView.setBackgroundColor(bkcolor);
-        //viewHolder.itemView.setBackgroundColor(0);
         if (onDragListener != null) {
             onDragListener.onDragFinished(viewHolder.itemView);
         }

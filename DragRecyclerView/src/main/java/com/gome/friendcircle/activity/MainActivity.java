@@ -28,4 +28,12 @@ public class MainActivity extends AppCompatActivity {
         ((RecyclerViewFragment) fragment).windowViewManager.removeFloatView();
         super.onBackPressed();
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            ((RecyclerViewFragment) fragment).hideWindowView();
+        }
+    }
 }

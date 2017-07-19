@@ -35,7 +35,6 @@ public class WindowViewManager {
         params.format = PixelFormat.TRANSLUCENT;// 不设置这个弹出框的透明遮罩显示为黑色
         params.width = w;
         params.height = w;
-        childView.setVisibility(View.VISIBLE);
         params.alpha = 0.0f;
         params.gravity = Gravity.LEFT | Gravity.TOP;
         wm.addView(childView, params);
@@ -43,7 +42,7 @@ public class WindowViewManager {
 
     public void showOverViewLayout(int x, int y, Drawable drawable) {
         Log.e("tag", "显示窗口");
-//        mChildView.setBackgroundDrawable(drawable);
+        mChildView.setBackgroundDrawable(drawable);
         mChildView.setVisibility(View.VISIBLE);
         params.alpha = 1f;
         params.x = x;
@@ -56,7 +55,6 @@ public class WindowViewManager {
     public void hideOverViewLayout() {
         Log.e("tag", "隐藏窗口");
         if (wm != null && mChildView != null && mChildView.isShown()) {
-//            mChildView.setVisibility(View.GONE);
             params.gravity = Gravity.LEFT | Gravity.TOP;
             mChildView.setVisibility(View.GONE);
             params.alpha = 0f;
@@ -69,7 +67,6 @@ public class WindowViewManager {
     public void removeFloatView() {
         if (wm != null && mChildView != null) {
             wm.removeViewImmediate(mChildView);
-//          wm.removeView(view);//不要调用这个，WindowLeaked
             mChildView = null;
             wm = null;
         }

@@ -120,11 +120,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         Log.e("tag", "完成拖拽");
         isOver = true;
         deleteview.setVisibility(View.GONE);
-//        if(null!=itemView){
-//            itemView.setVisibility(View.VISIBLE);
-//        }
         itemView.setVisibility(View.VISIBLE);
-
         hideWindowView();
     }
 
