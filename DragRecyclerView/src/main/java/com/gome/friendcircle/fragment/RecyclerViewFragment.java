@@ -101,10 +101,12 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
                 }
             }
 
+
+
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
                 ItemEntity item = dataList.get(vh.getLayoutPosition());
-                Toast.makeText(getActivity(), item.getId() + " ", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), item.getId() + " ", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -70,6 +70,11 @@ public class RecyclerViewItemTouchListener implements RecyclerView.OnItemTouchLi
     public void onLongClick(RecyclerView.ViewHolder vh) {
     }
 
+    public void onTouchEvent(RecyclerView.ViewHolder viewHolder){
+
+    }
+
+
     /**
      * item点击事件
      * @param vh

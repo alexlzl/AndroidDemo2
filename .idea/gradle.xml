@@ -11,10 +11,14 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/DragRecyclerView" />
             <option value="$PROJECT_DIR$/Fragmenttest" />
+            <option value="$PROJECT_DIR$/RecyclerViewItemTouchHelper1" />
+            <option value="$PROJECT_DIR$/RecyclerviewItemTouchHelper" />
             <option value="$PROJECT_DIR$/WindowManager" />
             <option value="$PROJECT_DIR$/java" />
             <option value="$PROJECT_DIR$/任务栈" />
             <option value="$PROJECT_DIR$/双进程守护" />
+            <option value="$PROJECT_DIR$/自定义长按" />
+            <option value="$PROJECT_DIR$/自定义长按事件1" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

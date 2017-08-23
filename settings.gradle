@@ -1,2 +1,2 @@
-include ':任务栈', ':java', ':Fragmenttest', ':WindowManager',
-        '双进程守护', 'DragRecyclerView'
+include ':任务栈', ':java', ':Fragmenttest', ':WindowManager', ':自定义长按', ':自定义长按事件1',
+        '双进程守护', 'DragRecyclerView', 'RecyclerviewItemTouchHelper', ':RecyclerViewItemTouchHelper1'
