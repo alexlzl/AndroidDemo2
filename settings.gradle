@@ -1,2 +1,2 @@
 include ':任务栈', ':java', ':Fragmenttest', ':WindowManager', ':自定义长按', ':自定义长按事件1',
-        '双进程守护', 'DragRecyclerView', 'RecyclerviewItemTouchHelper', ':RecyclerViewItemTouchHelper1'
+        '双进程守护', 'DragRecyclerView', 'RecyclerviewItemTouchHelper', ':RecyclerViewItemTouchHelper1', ':SnapHelperDemo-master', 'LayoutManager自定义', 'MDSimple', 'MD', ':gravitysnaphelper', 'SnapHelper_RecyclerView', 'Banner', ':mzbanner'

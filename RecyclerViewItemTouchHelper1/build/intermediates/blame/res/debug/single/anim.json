@@ -12,66 +12,6 @@
         "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_snackbar_in.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\design_fab_in.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_fab_in.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_out.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_snackbar_out.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\design_fab_out.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_fab_out.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_slide_out_top.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_slide_in_top.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_fade_in.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\design_fab_out.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_fab_out.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_slide_out_bottom.xml"
-    },
-    {
         "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
         "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_slide_out_top.xml"
     },
@@ -80,24 +20,20 @@
         "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_snackbar_in.xml"
     },
     {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_popup_enter.xml"
-    },
-    {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_slide_in_bottom.xml"
+        "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
     },
     {
         "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
         "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
-        "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_popup_exit.xml"
+        "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
     },
     {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_fade_out.xml"
+        "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_popup_exit.xml"
     },
     {
         "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
@@ -116,8 +52,8 @@
         "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
-        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\c33e9520ad7be1f348e92ec38d4ca8c5873ca674\\output\\res\\anim\\abc_popup_exit.xml"
+        "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\design_fab_out.xml",
+        "source": "C:\\Users\\liuzhouliang\\.android\\build-cache\\5a1ff4deea60f190c31cc5daf5fbf90cd3003766\\output\\res\\anim\\design_fab_out.xml"
     },
     {
         "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",

@@ -9,12 +9,20 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Banner" />
             <option value="$PROJECT_DIR$/DragRecyclerView" />
             <option value="$PROJECT_DIR$/Fragmenttest" />
+            <option value="$PROJECT_DIR$/LayoutManager自定义" />
+            <option value="$PROJECT_DIR$/MD" />
+            <option value="$PROJECT_DIR$/MDSimple" />
             <option value="$PROJECT_DIR$/RecyclerViewItemTouchHelper1" />
             <option value="$PROJECT_DIR$/RecyclerviewItemTouchHelper" />
+            <option value="$PROJECT_DIR$/SnapHelperDemo-master" />
+            <option value="$PROJECT_DIR$/SnapHelper_RecyclerView" />
             <option value="$PROJECT_DIR$/WindowManager" />
+            <option value="$PROJECT_DIR$/gravitysnaphelper" />
             <option value="$PROJECT_DIR$/java" />
+            <option value="$PROJECT_DIR$/mzbanner" />
             <option value="$PROJECT_DIR$/任务栈" />
             <option value="$PROJECT_DIR$/双进程守护" />
             <option value="$PROJECT_DIR$/自定义长按" />

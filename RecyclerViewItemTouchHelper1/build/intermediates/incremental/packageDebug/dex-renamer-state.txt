@@ -1,7 +1,0 @@
-#Wed Aug 23 15:41:52 CST 2017
-base.0=D\:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_2cacacd22404767674caf3a3f04129440852e4a5
-renamed.1=classes2.dex
-renamed.0=classes.dex
-file.1=D\:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_f6d523d890185f7f0e67ff41b16891da27d5f735\\classes.dex
-base.1=D\:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_f6d523d890185f7f0e67ff41b16891da27d5f735
-file.0=D\:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_2cacacd22404767674caf3a3f04129440852e4a5\\classes.dex

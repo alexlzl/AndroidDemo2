@@ -2,13 +2,21 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Banner/Banner.iml" filepath="$PROJECT_DIR$/Banner/Banner.iml" />
       <module fileurl="file://$PROJECT_DIR$/Demo2.iml" filepath="$PROJECT_DIR$/Demo2.iml" />
       <module fileurl="file://$PROJECT_DIR$/DragRecyclerView/DragRecyclerView.iml" filepath="$PROJECT_DIR$/DragRecyclerView/DragRecyclerView.iml" />
       <module fileurl="file://$PROJECT_DIR$/Fragmenttest/Fragmenttest.iml" filepath="$PROJECT_DIR$/Fragmenttest/Fragmenttest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LayoutManager自定义/LayoutManager自定义.iml" filepath="$PROJECT_DIR$/LayoutManager自定义/LayoutManager自定义.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MD/MD.iml" filepath="$PROJECT_DIR$/MD/MD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MDSimple/MDSimple.iml" filepath="$PROJECT_DIR$/MDSimple/MDSimple.iml" />
       <module fileurl="file://$PROJECT_DIR$/RecyclerViewItemTouchHelper1/RecyclerViewItemTouchHelper1.iml" filepath="$PROJECT_DIR$/RecyclerViewItemTouchHelper1/RecyclerViewItemTouchHelper1.iml" />
       <module fileurl="file://$PROJECT_DIR$/RecyclerviewItemTouchHelper/RecyclerviewItemTouchHelper.iml" filepath="$PROJECT_DIR$/RecyclerviewItemTouchHelper/RecyclerviewItemTouchHelper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SnapHelperDemo-master/SnapHelperDemo-master.iml" filepath="$PROJECT_DIR$/SnapHelperDemo-master/SnapHelperDemo-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SnapHelper_RecyclerView/SnapHelper_RecyclerView.iml" filepath="$PROJECT_DIR$/SnapHelper_RecyclerView/SnapHelper_RecyclerView.iml" />
       <module fileurl="file://$PROJECT_DIR$/WindowManager/WindowManager.iml" filepath="$PROJECT_DIR$/WindowManager/WindowManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gravitysnaphelper/gravitysnaphelper.iml" filepath="$PROJECT_DIR$/gravitysnaphelper/gravitysnaphelper.iml" />
       <module fileurl="file://$PROJECT_DIR$/java/java.iml" filepath="$PROJECT_DIR$/java/java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mzbanner/mzbanner.iml" filepath="$PROJECT_DIR$/mzbanner/mzbanner.iml" />
       <module fileurl="file://$PROJECT_DIR$/任务栈/任务栈.iml" filepath="$PROJECT_DIR$/任务栈/任务栈.iml" />
       <module fileurl="file://$PROJECT_DIR$/双进程守护/双进程守护.iml" filepath="$PROJECT_DIR$/双进程守护/双进程守护.iml" />
       <module fileurl="file://$PROJECT_DIR$/自定义长按/自定义长按.iml" filepath="$PROJECT_DIR$/自定义长按/自定义长按.iml" />

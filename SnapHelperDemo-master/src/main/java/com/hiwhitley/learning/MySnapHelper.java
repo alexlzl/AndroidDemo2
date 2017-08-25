@@ -9,7 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by hiwhitley on 2016/9/4.
+ * attachToRecyclerView: 将 SnapHelper attach 到指定的 RecyclerView 上。
+
+ calculateDistanceToFinalSnap: 复写这个方法计算对齐到 TargetView 或容器指定点的距离，这是一个抽象方法，由子类自己实现，返回的是一个长度为 2 的 int 数组 out，out[0] 是 x 方向对齐要移动的距离，out[1] 是 y 方向对齐要移动的距离。
+
+ calculateScrollDistance: 根据每个方向给定的速度估算滑动的距离，用于 Fling 操作。
+
+ findSnapView:提供一个指定的目标 View 来对齐,抽象方法，需要子类实现
+
+ findTargetSnapPosition:提供一个用于对齐的 Adapter 目标 position,抽象方法，需要子类自己实现。
+
+ onFling:根据给定的 x 和 y 轴上的速度处理 Fling。
  */
 public class MySnapHelper extends LinearSnapHelper {
 

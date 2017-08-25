@@ -3,6 +3,8 @@ package com.hiwhitley.learning;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
@@ -33,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mRecyclerView.setAdapter(new MyAdapter(mImagesList));
 
-//        LinearSnapHelper mLinearSnapHelper = new LinearSnapHelper();
-//        mLinearSnapHelper.attachToRecyclerView(mRecyclerView);
+        LinearSnapHelper mLinearSnapHelper = new LinearSnapHelper();
+        mLinearSnapHelper.attachToRecyclerView(mRecyclerView);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -47,8 +49,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }));
-
-        MySnapHelper mMySnapHelper = new MySnapHelper();
-        mMySnapHelper.attachToRecyclerView(mRecyclerView);
+        /**
+         * LinearSnapHelper & PagerSnapHelper
+         上面讲了 SnapHelper 的几个重要的方法和作用，SnapHelper 是一个抽象类，要使用SnapHelper，需要实现它的几个方法。而 Google 内置了两个默认实现类，LinearSnapHelper和PagerSnapHelper ，LinearSnapHelper 可以使 RecyclerView 的当前 Item 居中显示（横向和竖向都支持），PagerSnapHelper  看名字可能就能猜到，使RecyclerView 像ViewPager 一样的效果，每次只能滑动一页（LinearSnapHelper 支持快速滑动）, PagerSnapHelper 也是 Item 居中对齐。接下来看一下使用方法和效果。
+         */
+//        MySnapHelper mMySnapHelper = new MySnapHelper();
+//        mMySnapHelper.attachToRecyclerView(mRecyclerView);
+//        PagerSnapHelper pagerSnapHelper=new PagerSnapHelper();
+//        pagerSnapHelper.attachToRecyclerView(mRecyclerView);
     }
 }

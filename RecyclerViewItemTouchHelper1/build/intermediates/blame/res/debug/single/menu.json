@@ -1,9 +1,5 @@
 [
     {
-        "merged": "D:\\Demo\\Demo2\\DragRecyclerView\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
-        "source": "D:\\Demo\\Demo2\\DragRecyclerView\\src\\main\\res\\menu\\menu_main.xml"
-    },
-    {
         "merged": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
         "source": "D:\\Demo\\Demo2\\RecyclerViewItemTouchHelper1\\src\\main\\res\\menu\\menu_main.xml"
     }
