@@ -27,7 +27,6 @@ public class WindowViewManager {
     public void initOverView(final ImageView childView) {
 //        Log.e("tag", "初始化窗口");
         mChildView = childView;
-        int w = 360;// 大小
         wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         params = new WindowManager.LayoutParams();
 //        params.type = WindowManager.LayoutParams.TYPE_BASE_APPLICATION;// 所有程序窗口的“基地”窗口，其他应用程序窗口都显示在它上面。

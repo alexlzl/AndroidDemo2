@@ -3,12 +3,14 @@ package com.gome.friendcircle.helper;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.gome.app.R;
 import com.gome.friendcircle.adapter.RecyclerAdapter;
@@ -98,10 +100,13 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
      */
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+
         int fromPosition = viewHolder.getAdapterPosition();//得到拖动ViewHolder的position
         int toPosition = target.getAdapterPosition();//得到目标ViewHolder的position
         itemMoveCallbackAdapter.onMove(fromPosition, toPosition);//回调adapter进行数据刷新
-        Log.e("tag", "onMove");
+        Log.e("tag", "onMove===="+"fromPosition=="+fromPosition+"toPosition==="+toPosition);
+        Toast.makeText(recyclerView.getContext(),"fromPosition=="+fromPosition+"toPosition==="+toPosition,Toast.LENGTH_SHORT).show();
+//        ((RecyclerAdapter) itemMoveCallbackAdapter).notifyDataSetChanged();
         return true;
     }
 
@@ -116,7 +121,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-//        Log.e("tag", "onChildDraw==");
+        Log.e("tag", "onChildDraw==");
         if (null == onDragListener) {
             return;
         }
@@ -124,6 +129,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
             /**
              * 如果在删除区域并且松开手，刷新完数据，后面的onChildDraw事件就不处理
              */
+            Log.e("tag", "删除数据后onChildDraw==");
             return;
         }
         /**
@@ -176,7 +182,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
      */
     @Override
     public long getAnimationDuration(RecyclerView recyclerView, int animationType, float animateDx, float animateDy) {
-        Log.e("tag", "手指松开====isDragOver = true");
+        Log.e("tag", "getAnimationDuration手指松开====isDragOver = true");
         isDragOver = true;
         return super.getAnimationDuration(recyclerView, animationType, animateDx, animateDy);
     }
@@ -194,8 +200,29 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
             onDragListener.onDragFinished(viewHolder.itemView);
         }
         isLoosenOnDelete = false;
-        ((RecyclerAdapter) itemMoveCallbackAdapter).notifyDataSetChanged();
+        if(isNotify(recyclerView)){
+            ((RecyclerAdapter) itemMoveCallbackAdapter).notifyDataSetChanged();
+        }
+
+//        specialUpdate();
     }
+    private boolean isNotify(RecyclerView recyclerView){
+        boolean isNotify=false;
+        if(recyclerView.getScrollState()==RecyclerView.SCROLL_STATE_IDLE&&!recyclerView.isComputingLayout()){
+            isNotify=true;
+        }
+        return  isNotify;
+    }
+     private void specialUpdate() {
+         Handler handler = new Handler();
+         final Runnable r = new Runnable() {
+             public void run() {
+                 ((RecyclerAdapter) itemMoveCallbackAdapter).notifyDataSetChanged();
+             }
+         };
+         handler.post(r);
+     }
+
     /**
      * @ Describe: 判断是否已经到达底部删除区域
      * @ Author: LZL
@@ -224,7 +251,7 @@ public class ItemTouchHelper extends android.support.v7.widget.helper.ItemTouchH
         int viewDistance = deleteViewY - itemViewY-itemView.getHeight();//ITEM到底部删除视图的距离
         Log.e("tag", "底部删除视图Y坐标==" + deleteViewY + "==ITEM=Y坐标==" + itemViewY);
         Log.e("tag", "视图拖动距离==" + dy + "距离删除区域距离==" + viewDistance);
-        if (viewDistance <= 20) {
+        if (viewDistance <= 0) {
             /**
              * 在ITEM底部距离删除视图小于50像素时，达到删除条件
              */

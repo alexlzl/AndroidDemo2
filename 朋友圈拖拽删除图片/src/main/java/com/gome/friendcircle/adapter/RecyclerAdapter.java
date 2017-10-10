@@ -67,6 +67,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+//        notifyDataSetChanged();
     }
 
 

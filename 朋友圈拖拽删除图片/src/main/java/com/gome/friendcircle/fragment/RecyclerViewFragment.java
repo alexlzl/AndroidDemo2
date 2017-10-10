@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     public WindowViewManager windowViewManager;
     private RecyclerView recyclerView;
     private android.support.v7.widget.helper.ItemTouchHelper itemTouchHelper;
+    Animation show;
+    Animation hide;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +54,8 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
         dataList.add(new ItemEntity(7, R.drawable.eight));
         dataList.add(new ItemEntity(8, R.drawable.nine));
         dataList.add(new ItemEntity(dataList.size(), R.drawable.add));
+        show= AnimationUtils.loadAnimation(getContext(),R.anim.show);
+        hide=AnimationUtils.loadAnimation(getContext(),R.anim.hide);
     }
 
     @Nullable
@@ -112,13 +118,15 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     }
 
     /**
-     * 拖拽是否松开
+     * 拖拽松开======================
      */
     @Override
     public void onDragFinished(View itemView) {
         //存入缓存
         Log.e("tag", "完成拖拽");
         isOver = true;
+
+//        deleteView.startAnimation(hide);
         deleteView.setVisibility(View.GONE);
         itemView.setVisibility(View.VISIBLE);
         hideWindowView();
@@ -140,7 +148,7 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     }
 
     /**
-     * 是否开始拖拽
+     * 是否开始拖拽============================
      *
      * @param isStartDrag
      */
@@ -148,9 +156,12 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
     public void isStartDrag(boolean isStartDrag) {
         if (isStartDrag) {
             deleteView.setVisibility(View.VISIBLE);
-        } else {
-            deleteView.setVisibility(View.GONE);
+            deleteView.startAnimation(show);
         }
+
+//        else {
+//            deleteView.setVisibility(View.GONE);
+//        }
     }
 
     /**
@@ -168,19 +179,6 @@ public class RecyclerViewFragment extends Fragment implements ItemTouchHelper.On
             isOver = false;
             hideWindowView();
         }
-
-//        if (!isOver) {
-//            /**
-//             * 非松开拖拽后的回调，显示遮罩视图
-//             */
-//            isOver = false;
-//        } else {
-//            /**
-//             * 处理松开拖拽后的回调，isOver置为false，下次拖拽仍然可以显示遮罩视图
-//             */
-//            isOver = false;
-////            hideWindowView();
-//        }
     }
      /**
        * @ Describe: 是否显示遮罩层
